@@ -76,3 +76,11 @@ npm run build
 1.  **移动优先**: 所有组件必须在 375px - 430px 宽度下完美呈现。
 2.  **类型安全**: 所有 API 调用必须基于 shared-contracts，禁止使用 any。
 3.  **澄明法则**: 代码即文档，复杂的业务逻辑必须配有简洁的注释和对应的单元测试。
+
+## 📈 项目进展 (Project Status)
+
+- **2026-05-17**: 完成初步实现的代码审查与修复。
+  - 修正了 `DiscoveryCard.vue`, `index.vue` 和 `default.vue` 中的模板与样式错误。
+  - 规范化项目结构，将 `app.vue` 移至 `app/` 目录以完全符合 Nuxt 4 规范。
+  - 同步并更新了最新的 API 契约 (`shared-contracts`)。
+  - 完成首次代码推送至远程仓库。
