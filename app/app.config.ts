@@ -1,0 +1,31 @@
+export default defineAppConfig({
+  ui: {
+    colors: {
+      primary: 'rose',
+      secondary: 'violet',
+      success: 'green',
+      info: 'sky',
+      warning: 'amber',
+      error: 'red',
+      neutral: 'zinc',
+    },
+    icons: {
+      arrowLeft: 'i-lucide-arrow-left',
+      arrowRight: 'i-lucide-arrow-right',
+      check: 'i-lucide-check',
+      chevronDown: 'i-lucide-chevron-down',
+      chevronLeft: 'i-lucide-chevron-left',
+      chevronRight: 'i-lucide-chevron-right',
+      close: 'i-lucide-x',
+      dark: 'i-lucide-moon',
+      error: 'i-lucide-circle-alert',
+      external: 'i-lucide-external-link',
+      light: 'i-lucide-sun',
+      loading: 'i-lucide-loader-circle',
+      minus: 'i-lucide-minus',
+      plus: 'i-lucide-plus',
+      search: 'i-lucide-search',
+      system: 'i-lucide-monitor',
+    },
+  },
+});

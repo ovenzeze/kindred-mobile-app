@@ -13,6 +13,9 @@ node_modules
 logs
 *.log
 
+# QA artifacts
+dogfood-output/
+
 # Misc
 .DS_Store
 .fleet

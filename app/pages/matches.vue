@@ -2,7 +2,7 @@
   <div class="flex flex-col h-full">
     <AppHeader>
       <template #left>
-        <h1 class="text-xl font-bold text-gray-900">Matches</h1>
+        <h1 class="text-xl font-bold text-highlighted">Matches</h1>
       </template>
     </AppHeader>
 
@@ -19,8 +19,8 @@
         />
       </div>
 
-      <div v-else class="flex flex-col items-center justify-center h-64 text-gray-400">
-        <UIcon name="i-heroicons-heart" class="w-12 h-12 opacity-20" />
+      <div v-else class="flex flex-col items-center justify-center h-64 text-dimmed">
+        <UIcon name="i-lucide-heart" class="w-12 h-12 opacity-20" />
         <p class="mt-2">{{ error || 'No matches yet. Keep exploring!' }}</p>
       </div>
     </div>

@@ -49,7 +49,7 @@ kindred-mobile-app/
 │   └── shared-contracts/ # API 契约
 ├── scripts/update-api.sh
 ├── workflow/maintenance.md
-├── docs/rules/           # frontend.md, contracts.md
+├── docs/rules/           # frontend, contracts, nuxt-ui, agent-browser-qa
 ├── CLAUDE.md
 ├── openmemory.md
 ├── nuxt.config.ts
@@ -63,4 +63,4 @@ kindred-mobile-app/
 ## 项目进展
 
 - **2026-05-17:** 发现页、匹配、聊天、资料等初版 UI；契约与后端对齐。
-- **2026-05-18:** 建立三层文档体系（CLAUDE / openmemory / docs/rules）；补充认证流程与 middleware 文档；对齐 API 基址与端口说明。
+- **2026-05-18:** 建立三层文档体系（CLAUDE / openmemory / docs/rules）；补充 Nuxt UI v4 接入规则（`docs/rules/nuxt-ui.md`）与 agent-browser 验收规则；修复全局 CSS 入口；契约同步 albums/profileFields v2。

@@ -23,6 +23,21 @@ export default defineNuxtConfig({
     '@nuxt/fonts'
   ],
 
+  css: ['~/assets/css/main.css'],
+
+  ui: {
+    theme: {
+      colors: [
+        'primary',
+        'secondary',
+        'success',
+        'info',
+        'warning',
+        'error',
+      ],
+    },
+  },
+
   // Nuxt 4 preference
   future: {
     compatibilityVersion: 4,

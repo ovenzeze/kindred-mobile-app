@@ -1,10 +1,9 @@
 <template>
-  <div class="h-full">
+  <UApp>
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
-    <UNotifications />
-  </div>
+  </UApp>
 </template>
 
 <script setup lang="ts">

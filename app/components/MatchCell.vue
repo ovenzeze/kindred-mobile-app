@@ -1,25 +1,25 @@
 <template>
-  <NuxtLink 
-    :to="'/chat/' + id" 
-    class="flex items-center gap-3 p-4 hover:bg-gray-50 transition-colors border-b"
+  <NuxtLink
+    :to="'/chat/' + id"
+    class="flex items-center gap-3 p-4 hover:bg-elevated transition-colors border-b border-muted"
   >
-    <UAvatar 
-      :src="imageUrl" 
-      :alt="name" 
+    <UAvatar
+      :src="imageUrl"
+      :alt="name"
       size="lg"
       class="shadow-sm"
     />
-    
+
     <div class="flex-1 overflow-hidden">
       <div class="flex justify-between items-baseline">
-        <h3 class="font-semibold text-gray-900 truncate">{{ name }}</h3>
-        <span class="text-gray-400 text-xs">{{ lastMessageTime }}</span>
+        <h3 class="font-semibold text-highlighted truncate">{{ name }}</h3>
+        <span class="text-dimmed text-xs">{{ lastMessageTime }}</span>
       </div>
-      <p class="text-sm text-gray-500 truncate mt-0.5">{{ lastMessage }}</p>
+      <p class="text-sm text-muted truncate mt-0.5">{{ lastMessage }}</p>
     </div>
-    
-    <div v-if="unreadCount && unreadCount > 0" class="w-5 h-5 bg-primary-600 rounded-full flex items-center justify-center">
-      <span class="text-white text-[10px] font-medium">{{ unreadCount }}</span>
+
+    <div v-if="unreadCount && unreadCount > 0" class="w-5 h-5 bg-primary rounded-full flex items-center justify-center">
+      <span class="text-inverted text-[10px] font-medium">{{ unreadCount }}</span>
     </div>
   </NuxtLink>
 </template>

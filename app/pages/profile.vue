@@ -2,13 +2,14 @@
   <div class="flex flex-col h-full">
     <AppHeader>
       <template #left>
-        <h1 class="text-xl font-bold text-gray-900">Profile</h1>
+        <h1 class="text-xl font-bold text-highlighted">Profile</h1>
       </template>
       <template #right>
         <UButton
-          icon="i-heroicons-arrow-right-on-rectangle"
+          icon="i-lucide-log-out"
           variant="ghost"
-          color="gray"
+          color="neutral"
+          aria-label="Log out"
           @click="handleLogout"
         />
       </template>
@@ -31,16 +32,16 @@
           <h2 class="text-2xl font-bold mt-4">
             {{ profile.displayName || 'You' }}<span v-if="age">, {{ age }}</span>
           </h2>
-          <p class="text-gray-500 text-center mt-1">{{ profile.bio || 'No bio yet' }}</p>
+          <p class="text-muted text-center mt-1">{{ profile.bio || 'No bio yet' }}</p>
         </div>
 
         <div class="space-y-2">
           <UButton
             label="Edit Profile"
-            icon="i-heroicons-user-edit"
+            icon="i-lucide-user-pen"
             block
             variant="soft"
-            color="gray"
+            color="neutral"
             @click="openEdit = true"
           />
         </div>
@@ -48,7 +49,7 @@
 
       <UAlert
         v-else-if="error"
-        color="red"
+        color="error"
         variant="soft"
         :title="error"
         class="mt-4"
@@ -58,14 +59,14 @@
     <USlideover v-model:open="openEdit">
       <template #content>
         <div class="p-4 space-y-4">
-          <h3 class="text-lg font-semibold">Edit profile</h3>
+          <h3 class="text-lg font-semibold text-highlighted">Edit profile</h3>
           <UFormField label="Display name">
-            <UInput v-model="editForm.displayName" />
+            <UInput v-model="editForm.displayName" class="w-full" />
           </UFormField>
           <UFormField label="Bio">
-            <UTextarea v-model="editForm.bio" :rows="4" />
+            <UTextarea v-model="editForm.bio" class="w-full" :rows="4" />
           </UFormField>
-          <UAlert v-if="saveError" color="red" variant="soft" :title="saveError" />
+          <UAlert v-if="saveError" color="error" variant="soft" :title="saveError" />
           <div class="flex gap-2">
             <UButton variant="ghost" block @click="openEdit = false">Cancel</UButton>
             <UButton block :loading="saving" @click="saveProfile">Save</UButton>

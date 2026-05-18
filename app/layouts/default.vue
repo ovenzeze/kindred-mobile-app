@@ -1,22 +1,18 @@
 <template>
-  <div class="min-h-screen bg-gray-50 flex flex-col max-w-md mx-auto relative shadow-xl overflow-hidden">
-    <!-- Header Component -->
+  <div class="min-h-screen bg-default flex flex-col max-w-md mx-auto relative shadow-xl overflow-hidden">
     <AppHeader />
 
-    <!-- Main Content -->
     <main class="flex-1 overflow-y-auto pb-20">
       <slot />
     </main>
 
-    <!-- Bottom Navigation Component -->
     <AppNavbar />
   </div>
 </template>
 
 <style>
-/* Global mobile app look */
 body {
-  background-color: #f3f4f6;
+  background-color: var(--ui-bg-muted);
   overscroll-behavior-y: contain;
 }
 </style>

@@ -20,27 +20,27 @@
 
       <div class="flex gap-4 mt-8">
         <UButton
-          icon="i-heroicons-x-mark"
+          icon="i-lucide-x"
           size="xl"
-          color="red"
+          color="error"
           variant="soft"
           class="rounded-full w-16 h-16 flex justify-center shadow-md active:scale-95 transition-transform"
           :disabled="actionLoading"
           @click="swipe('pass')"
         />
         <UButton
-          icon="i-heroicons-star"
+          icon="i-lucide-star"
           size="lg"
-          color="blue"
+          color="info"
           variant="soft"
           class="rounded-full w-12 h-12 flex justify-center mt-2 shadow-sm active:scale-95 transition-transform"
           :disabled="actionLoading"
           @click="swipe('super_like')"
         />
         <UButton
-          icon="i-heroicons-heart"
+          icon="i-lucide-heart"
           size="xl"
-          color="green"
+          color="success"
           variant="soft"
           class="rounded-full w-16 h-16 flex justify-center shadow-md active:scale-95 transition-transform"
           :disabled="actionLoading"
@@ -49,8 +49,8 @@
       </div>
     </template>
 
-    <div v-else class="flex flex-col items-center text-gray-400">
-      <UIcon name="i-heroicons-sparkles" class="w-12 h-12 opacity-20" />
+    <div v-else class="flex flex-col items-center text-dimmed">
+      <UIcon name="i-lucide-sparkles" class="w-12 h-12 opacity-20" />
       <p class="mt-2">{{ error || 'No more profiles. Check back later!' }}</p>
       <UButton class="mt-4" variant="soft" @click="fetchQueue">Reload</UButton>
     </div>
