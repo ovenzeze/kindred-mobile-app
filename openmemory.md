@@ -38,7 +38,10 @@
 
 ---
 
-## 待决事项
 
 - `shared-contracts` 尚未包含后端的 `albums` / `profileFields` 域 — 待后端稳定后运行 `update-api` 并补全手写契约
 - 相册 UI 与 R2 直传流程 — 未实现
+
+### 契约同步 v2
+**决策：** 已补全 `albums` 和 `profileFields` 域的手写契约，并与后端 v2 协议完全同步。
+**事实来源：** `app/shared-contracts/index.ts`、`app/shared-contracts/albums.ts`、`app/shared-contracts/profile-fields.ts`
