@@ -85,7 +85,7 @@
 <script setup lang="ts">
 definePageMeta({
   layout: 'auth',
-  auth: false, // This page is accessible without authentication
+  middleware: 'guest',
 });
 
 const authStore = useAuthStore();

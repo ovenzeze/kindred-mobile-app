@@ -42,3 +42,10 @@ export const ConversationSchema = conversationsListResponse.shape.conversations.
 // Message is the items in the messages list
 const messagesListResponse = getEndpoint('chat.listMessages').response;
 export const MessageSchema = messagesListResponse.shape.messages.element;
+
+// --- Album Schemas ---
+export const AlbumSchema = getEndpoint('albums.listAlbums').response.element;
+export const AlbumPhotoSchema = getEndpoint('albums.listPhotos').response.element;
+
+// --- Profile Field Schemas ---
+export const ProfileFieldSchema = getEndpoint('profileFields.getMyFields').response.element;

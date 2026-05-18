@@ -5,69 +5,163 @@
         <h1 class="text-xl font-bold text-gray-900">Profile</h1>
       </template>
       <template #right>
-        <UButton icon="i-heroicons-cog-6-tooth" variant="ghost" color="gray" />
+        <UButton
+          icon="i-heroicons-arrow-right-on-rectangle"
+          variant="ghost"
+          color="gray"
+          @click="handleLogout"
+        />
       </template>
     </AppHeader>
 
     <div class="flex-1 overflow-y-auto p-4">
-      <div class="flex flex-col items-center mb-8">
-        <div class="relative">
-          <UAvatar 
-            src="https://i.pravatar.cc/150?u=me" 
+      <div v-if="loading" class="space-y-4">
+        <USkeleton class="w-24 h-24 rounded-full mx-auto" />
+        <USkeleton class="h-6 w-40 mx-auto" />
+        <USkeleton class="h-4 w-56 mx-auto" />
+      </div>
+
+      <template v-else-if="profile">
+        <div class="flex flex-col items-center mb-8">
+          <UAvatar
+            :src="avatarUrl"
             size="3xl"
             class="ring-4 ring-primary-500/20"
           />
+          <h2 class="text-2xl font-bold mt-4">
+            {{ profile.displayName || 'You' }}<span v-if="age">, {{ age }}</span>
+          </h2>
+          <p class="text-gray-500 text-center mt-1">{{ profile.bio || 'No bio yet' }}</p>
+        </div>
+
+        <div class="space-y-2">
           <UButton
-            icon="i-heroicons-pencil"
-            size="xs"
-            color="primary"
-            class="absolute bottom-0 right-0 rounded-full"
+            label="Edit Profile"
+            icon="i-heroicons-user-edit"
+            block
+            variant="soft"
+            color="gray"
+            @click="openEdit = true"
           />
         </div>
-        <h2 class="text-2xl font-bold mt-4">Alex, 26</h2>
-        <p class="text-gray-500">Product Designer</p>
-      </div>
+      </template>
 
-      <div class="grid grid-cols-2 gap-4 mb-8">
-        <UCard class="text-center" :ui="{ body: { padding: 'p-4' } }">
-          <UIcon name="i-heroicons-check-badge" class="w-6 h-6 text-blue-500 mx-auto" />
-          <p class="text-xs font-medium mt-1">Verified</p>
-        </UCard>
-        <UCard class="text-center" :ui="{ body: { padding: 'p-4' } }">
-          <UIcon name="i-heroicons-fire" class="w-6 h-6 text-orange-500 mx-auto" />
-          <p class="text-xs font-medium mt-1">Premium</p>
-        </UCard>
-      </div>
-
-      <div class="space-y-2">
-        <UButton
-          label="Edit Profile"
-          icon="i-heroicons-user-edit"
-          block
-          variant="soft"
-          color="gray"
-        />
-        <UButton
-          label="Safety Center"
-          icon="i-heroicons-shield-check"
-          block
-          variant="soft"
-          color="gray"
-        />
-        <UButton
-          label="Settings"
-          icon="i-heroicons-adjustments-horizontal"
-          block
-          variant="soft"
-          color="gray"
-        />
-      </div>
+      <UAlert
+        v-else-if="error"
+        color="red"
+        variant="soft"
+        :title="error"
+        class="mt-4"
+      />
     </div>
+
+    <USlideover v-model:open="openEdit">
+      <template #content>
+        <div class="p-4 space-y-4">
+          <h3 class="text-lg font-semibold">Edit profile</h3>
+          <UFormField label="Display name">
+            <UInput v-model="editForm.displayName" />
+          </UFormField>
+          <UFormField label="Bio">
+            <UTextarea v-model="editForm.bio" :rows="4" />
+          </UFormField>
+          <UAlert v-if="saveError" color="red" variant="soft" :title="saveError" />
+          <div class="flex gap-2">
+            <UButton variant="ghost" block @click="openEdit = false">Cancel</UButton>
+            <UButton block :loading="saving" @click="saveProfile">Save</UButton>
+          </div>
+        </div>
+      </template>
+    </USlideover>
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import { calcAge } from '~/utils/format';
+
 definePageMeta({
-  layout: 'default'
-})
+  layout: 'default',
+  middleware: 'auth',
+});
+
+type Profile = {
+  userId: string;
+  displayName: string | null;
+  bio: string | null;
+  birthdate: string | null;
+  photos: string[];
+};
+
+const { client } = useApi();
+const authStore = useAuthStore();
+const router = useRouter();
+
+const profile = ref<Profile | null>(null);
+const loading = ref(true);
+const error = ref<string | null>(null);
+const openEdit = ref(false);
+const saving = ref(false);
+const saveError = ref<string | null>(null);
+
+const editForm = reactive({
+  displayName: '',
+  bio: '',
+});
+
+const avatarUrl = computed(() => profile.value?.photos?.[0] || '');
+const age = computed(() => calcAge(profile.value?.birthdate));
+
+async function loadProfile() {
+  loading.value = true;
+  error.value = null;
+  try {
+    const response = await client.profile.getMe();
+    if (response.status === 200 && response.body) {
+      profile.value = response.body;
+      editForm.displayName = response.body.displayName ?? '';
+      editForm.bio = response.body.bio ?? '';
+    } else {
+      error.value = 'Could not load profile';
+    }
+  } catch {
+    error.value = 'Could not load profile';
+  } finally {
+    loading.value = false;
+  }
+}
+
+async function saveProfile() {
+  if (!editForm.displayName.trim()) {
+    saveError.value = 'Display name is required';
+    return;
+  }
+
+  saving.value = true;
+  saveError.value = null;
+  try {
+    const response = await client.profile.updateMe({
+      body: {
+        displayName: editForm.displayName.trim(),
+        bio: editForm.bio.trim() || undefined,
+      },
+    });
+    if (response.status === 200 && response.body) {
+      profile.value = response.body;
+      openEdit.value = false;
+    } else {
+      saveError.value = 'Could not save profile';
+    }
+  } catch {
+    saveError.value = 'Could not save profile';
+  } finally {
+    saving.value = false;
+  }
+}
+
+async function handleLogout() {
+  await authStore.logout();
+  await router.push('/auth/login');
+}
+
+onMounted(loadProfile);
 </script>

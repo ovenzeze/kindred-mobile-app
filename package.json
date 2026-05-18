@@ -7,9 +7,9 @@
   "scripts": {
     "update-api": "./scripts/update-api.sh",
     "build": "nuxt build",
-    "dev": "nuxt dev",
+    "dev": "tmux new-session -As kindred-mobile-app -c . 'nuxt dev --port 5102 --host'",
     "generate": "nuxt generate",
-    "preview": "nuxt preview",
+    "preview": "nuxt preview --port 5102",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
@@ -19,7 +19,7 @@
     "@pinia/nuxt": "^0.11.3",
     "@ts-rest/core": "^3.52.1",
     "@vite-pwa/nuxt": "^1.1.1",
-    "nuxt": "^3.21.5",
+    "nuxt": "4.4.2",
     "pinia": "^3.0.4",
     "vue": "^3.5.34",
     "vue-router": "^5.0.6",

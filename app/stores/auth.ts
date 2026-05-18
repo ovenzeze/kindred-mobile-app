@@ -155,17 +155,14 @@ export const useAuthStore = defineStore('auth', {
 
         if (savedSession && savedUser) {
           const session = SessionSchema.parse(JSON.parse(savedSession));
+          this.session = session;
+          this.user = savedUser;
 
-          // Check if token is expired
           if (session.expiresAt && Date.now() > session.expiresAt * 1000) {
-            // Token expired, try to refresh
             const result = await this.refreshSession();
             if (!result.success) {
               this.clearSession();
             }
-          } else {
-            this.session = session;
-            this.user = savedUser;
           }
         }
       } catch (e) {

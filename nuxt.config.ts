@@ -6,6 +6,13 @@ export default defineNuxtConfig({
 
   devServer: {
     port: 5102,
+    host: '0.0.0.0',
+  },
+
+  vite: {
+    server: {
+      allowedHosts: ['kindred.deth.dev', '.deth.dev'],
+    },
   },
 
   modules: [
