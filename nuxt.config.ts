@@ -4,6 +4,10 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
 
+  devServer: {
+    port: 5102,
+  },
+
   modules: [
     '@nuxt/ui',
     '@pinia/nuxt',
@@ -20,7 +24,7 @@ export default defineNuxtConfig({
   // Environment variables
   runtimeConfig: {
     public: {
-      apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE_URL || 'http://localhost:3000'
+      apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE_URL || 'http://localhost:3102/api/v1'
     }
   },
 

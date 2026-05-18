@@ -1,86 +1,66 @@
 # Kindred Mobile Web App
 
-> **"Code is solidified thought."**
-> Kindred Mobile Web App 是 Kindred 社交生态系统的移动端核心，基于 Nuxt 4 和 Vue 3 构建，致力于提供极致的移动优先（Mobile-First）体验。
+> Kindred 社交生态的移动端 Web 核心：Nuxt 4 + Vue 3 + ts-rest，移动优先 PWA。
 
-## 🌌 项目愿景 (Project Vision)
+## 技术栈
 
-Kindred 前端旨在打造一个纯粹、灵动且高度响应的社交平台。通过现代化的 Web 技术（PWA），我们打破了原生应用与网页之间的界限，让连接无处不在。
+- **框架:** Nuxt 4（`ssr: false`，SPA 体验）
+- **UI:** Nuxt UI 4
+- **状态:** Pinia
+- **API:** @ts-rest/core + `app/shared-contracts`
+- **PWA:** @vite-pwa/nuxt
 
-## 🛠 技术栈 (Tech Stack)
+## 快速开始
 
-遵循 **顺势法则 (The Law of Flow)**，我们选择了当前最先进且稳定的技术生态：
-
-*   **框架**: [Nuxt 4](https://nuxt.com/) (SSR: Disabled for SPA feel)
-*   **UI 组件库**: [Nuxt UI](https://ui.nuxt.com/) (基于 Tailwind CSS & Reka UI)
-*   **状态管理**: [Pinia](https://pinia.vuejs.org/)
-*   **API 契约**: [@ts-rest/core](https://ts-rest.com/) (类型安全的 API 交互)
-*   **移动端增强**: [Vite PWA](https://vite-pwa-org.netlify.app/frameworks/nuxt)
-*   **性能优化**: @nuxt/image, @nuxt/fonts
-
-## 📂 目录结构 (Directory Structure)
-
-\`\`\`bash
-Code/kindred-mobile-app/
-├── app/                  # Nuxt 4 应用核心
-│   ├── components/       # 原子级与业务组件
-│   ├── composables/      # 逻辑复用 (如 useApi)
-│   ├── layouts/          # 页面布局 (Default, Auth)
-│   ├── pages/            # 路由页面 (Discover, Matches, Profile)
-│   └── shared-contracts/ # 与后端同步的 API 契约
-├── public/               # 静态资源与 PWA 图标
-├── nuxt.config.ts        # 框架配置
-└── package.json          # 依赖管理
-\`\`\`
-
-## 🚀 快速开始 (Getting Started)
-
-### 安装依赖
-\`\`\`bash
+```bash
+cp .env.example .env
 npm install
-\`\`\`
-
-### 启动开发服务器
-\`\`\`bash
 npm run dev
-\`\`\`
+```
 
-### 构建生产版本
-\`\`\`bash
-npm run build
-\`\`\`
+开发地址：`http://localhost:5102`
 
-## 🗺 初始组件规划 (Initial Component Roadmap)
+## 环境变量
 
-为了实现核心业务流程，我们将优先开发以下组件：
+| 变量 | 说明 |
+|------|------|
+| `NUXT_PUBLIC_API_BASE_URL` | 后端 API 基址，默认 `http://localhost:3102/api/v1` |
 
-### 1. 基础架构类 (Infrastructure)
-*   **AppNavbar**: 移动端底部 Tab 导航（发现、匹配、消息、我）。
-*   **AppHeader**: 包含页面标题、回退按钮或右侧操作项的顶部工具栏。
-*   **PullToRefresh**: 下拉刷新容器，优化列表体验。
+## 常用脚本
 
-### 2. Core Business类 (Core Business)
-*   **DiscoveryCard**: 发现页的核心组件，支持手势滑动动画的个人资料卡片。
-*   **DiscoveryGallery**: 用户照片墙组件，支持点击放大。
-*   **MatchCell**: 匹配列表中的单行项，展示头像、姓名和最后一条消息。
-*   **ChatBubble**: 聊天对话气泡，区分发送者与接收者。
+| 命令 | 说明 |
+|------|------|
+| `npm run dev` | 开发服务器（端口 5102） |
+| `npm run build` | 生产构建 |
+| `npm run update-api` | 从部署 OpenAPI 同步 `shared-contracts` |
 
-### 3. 反馈类 (Feedback)
-*   **DiscoverySkeleton**: 发现页加载时的骨架屏。
-*   **EmptyState**: 当没有匹配或消息时的空状态提示。
+## 目录结构
 
----
+```
+kindred-mobile-app/
+├── app/
+│   ├── components/       # UI 组件
+│   ├── composables/      # useApi 等
+│   ├── layouts/          # default, auth
+│   ├── middleware/       # auth, guest
+│   ├── pages/            # 路由（含 auth/）
+│   ├── stores/           # auth, user
+│   ├── utils/
+│   └── shared-contracts/ # API 契约
+├── scripts/update-api.sh
+├── workflow/maintenance.md
+├── docs/rules/           # frontend.md, contracts.md
+├── CLAUDE.md
+├── openmemory.md
+├── nuxt.config.ts
+└── package.json
+```
 
-## 📜 秩序与准则 (Rules & Standards)
+## 文档体系
 
-1.  **移动优先**: 所有组件必须在 375px - 430px 宽度下完美呈现。
-2.  **类型安全**: 所有 API 调用必须基于 shared-contracts，禁止使用 any。
-3.  **澄明法则**: 代码即文档，复杂的业务逻辑必须配有简洁的注释和对应的单元测试。
+维护与阅读顺序见 `CLAUDE.md`；文档自检流程见 `workflow/maintenance.md`。
 
-## 📈 项目进展 (Project Status)
+## 项目进展
 
-- **2026-05-17**: 完成初步实现的代码审查与修复。
-  - 修正了 `DiscoveryCard.vue`, `index.vue` 和 `default.vue` 中的模板与样式错误。
-  - 规范化项目结构，将 `app.vue` 移至 `app/` 目录以完全符合 Nuxt 4 规范。
-  - 同步并更新了最新的 API 契约 (`shared-contracts`)。
-  - 完成首次代码推送至远程仓库。
+- **2026-05-17:** 发现页、匹配、聊天、资料等初版 UI；契约与后端对齐。
+- **2026-05-18:** 建立三层文档体系（CLAUDE / openmemory / docs/rules）；补充认证流程与 middleware 文档；对齐 API 基址与端口说明。
