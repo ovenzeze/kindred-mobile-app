@@ -57,7 +57,11 @@ async function loadMatches() {
   try {
     const response = await client.matches.list({ query: {} });
     if (response.status !== 200 || !response.body?.matches) {
-      error.value = 'Could not load matches';
+      const message =
+        response.body && typeof response.body === 'object' && 'message' in response.body
+          ? String((response.body as { message: string }).message)
+          : null;
+      error.value = message || 'Could not load matches';
       matches.value = [];
       return;
     }

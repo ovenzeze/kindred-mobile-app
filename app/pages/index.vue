@@ -114,7 +114,11 @@ async function fetchQueue() {
       queue.value = response.body.users.map(mapUser);
       currentIndex.value = 0;
     } else {
-      error.value = 'Could not load discovery queue';
+      const message =
+        response.body && typeof response.body === 'object' && 'message' in response.body
+          ? String((response.body as { message: string }).message)
+          : null;
+      error.value = message || 'Could not load discovery queue';
       queue.value = [];
     }
   } catch {

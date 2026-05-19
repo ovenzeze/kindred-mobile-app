@@ -22,6 +22,21 @@
         <USkeleton class="h-4 w-56 mx-auto" />
       </div>
 
+      <template v-else-if="needsSetup">
+        <div class="flex flex-col items-center mb-8">
+          <UAvatar size="3xl" icon="i-lucide-user" class="ring-4 ring-primary-500/20" />
+          <h2 class="text-2xl font-bold mt-4">Set up your profile</h2>
+          <p class="text-muted text-center mt-1">Add a display name to get started.</p>
+        </div>
+        <UFormField label="Display name" class="mb-4">
+          <UInput v-model="editForm.displayName" class="w-full" placeholder="Your name" />
+        </UFormField>
+        <UAlert v-if="saveError" color="error" variant="soft" :title="saveError" class="mb-4" />
+        <UButton block size="lg" :loading="saving" @click="saveProfile">
+          Continue
+        </UButton>
+      </template>
+
       <template v-else-if="profile">
         <div class="flex flex-col items-center mb-8">
           <UAvatar
@@ -98,6 +113,7 @@ const authStore = useAuthStore();
 const router = useRouter();
 
 const profile = ref<Profile | null>(null);
+const needsSetup = ref(false);
 const loading = ref(true);
 const error = ref<string | null>(null);
 const openEdit = ref(false);
@@ -115,15 +131,25 @@ const age = computed(() => calcAge(profile.value?.birthdate));
 async function loadProfile() {
   loading.value = true;
   error.value = null;
+  needsSetup.value = false;
   try {
-    const response = await client.profile.getMe();
-    if (response.status === 200 && response.body) {
-      profile.value = response.body;
-      editForm.displayName = response.body.displayName ?? '';
-      editForm.bio = response.body.bio ?? '';
-    } else {
-      error.value = 'Could not load profile';
+    const result = await authStore.ensureProfile();
+    if (result.success && result.profile) {
+      profile.value = result.profile;
+      editForm.displayName = result.profile.displayName ?? '';
+      editForm.bio = result.profile.bio ?? '';
+      if (!result.profile.displayName?.trim()) {
+        needsSetup.value = true;
+      }
+      return;
     }
+
+    if (result.error === 'Profile not found') {
+      needsSetup.value = true;
+      return;
+    }
+
+    error.value = result.error ?? 'Could not load profile';
   } catch {
     error.value = 'Could not load profile';
   } finally {
@@ -147,10 +173,19 @@ async function saveProfile() {
       },
     });
     if (response.status === 200 && response.body) {
+      const wasSetup = needsSetup.value;
       profile.value = response.body;
+      needsSetup.value = false;
       openEdit.value = false;
+      if (wasSetup) {
+        await router.push('/');
+      }
     } else {
-      saveError.value = 'Could not save profile';
+      const message =
+        response.body && typeof response.body === 'object' && 'message' in response.body
+          ? String((response.body as { message: string }).message)
+          : 'Could not save profile';
+      saveError.value = message;
     }
   } catch {
     saveError.value = 'Could not save profile';

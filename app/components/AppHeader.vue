@@ -1,8 +1,8 @@
 <template>
-  <header class="p-4 bg-default border-b border-muted flex justify-between items-center sticky top-0 z-10">
+  <header class="kindred-glass sticky top-0 z-10 flex items-center justify-between border-b border-white/35 p-4 dark:border-white/10">
     <div class="flex items-center gap-2">
       <slot name="left">
-        <h1 class="text-xl font-bold text-primary">Kindred</h1>
+        <h1 class="kindred-gradient-text text-xl font-bold">Kindred</h1>
       </slot>
     </div>
     <div class="flex items-center gap-2">

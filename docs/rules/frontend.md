@@ -28,9 +28,14 @@
 
 ## 认证页面
 
-- 登录：`app/pages/auth/login.vue`，布局 `auth`
+- 登录：`app/pages/auth/login.vue`，布局 `auth`（含 Google OAuth 按钮，调用 `authStore.loginWithGoogle()`）
 - 注册：`app/pages/auth/register.vue`
+- OAuth 回调：`app/pages/auth/callback.vue`（`@nuxtjs/supabase` 完成会话后写 Pinia / localStorage）
 - 需登录的业务页在 `definePageMeta` 中声明 `middleware: 'auth'`
+
+`nuxt.config.ts` 中 `supabase.redirectOptions` 须将 `login` 设为 `/auth/login`、`callback` 设为 `/auth/callback`，避免模块默认 `/login` 导致 404。
+
+来源：`nuxt.config.ts`、`app/stores/auth.ts`
 
 ---
 

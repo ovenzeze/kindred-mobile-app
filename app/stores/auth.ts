@@ -74,6 +74,29 @@ export const useAuthStore = defineStore('auth', {
       }
     },
 
+    async loginWithGoogle() {
+      this.loading = true;
+      this.error = null;
+
+      try {
+        const supabase = useSupabaseClient();
+        const { error } = await supabase.auth.signInWithOAuth({
+          provider: 'google',
+          options: {
+            redirectTo: `${window.location.origin}/auth/callback`,
+          },
+        });
+
+        if (error) throw error;
+        return { success: true };
+      } catch (e: any) {
+        this.error = e?.message || 'Google login failed';
+        return { success: false, error: this.error };
+      } finally {
+        this.loading = false;
+      }
+    },
+
     async register(email: string, password: string, displayName?: string) {
       this.loading = true;
       this.error = null;
@@ -143,6 +166,56 @@ export const useAuthStore = defineStore('auth', {
       } catch (e: any) {
         this.clearSession();
         return { success: false, error: e?.message || 'Refresh failed' };
+      }
+    },
+
+    async ensureProfile() {
+      try {
+        const { useApi } = await import('~/composables/useApi');
+        const { client } = useApi();
+        const response = await client.profile.getMe();
+
+        if (response.status === 200 && response.body) {
+          return { success: true as const, profile: response.body };
+        }
+
+        if (response.status === 404) {
+          const supabase = useSupabaseClient();
+          const { data: authData } = await supabase.auth.getUser();
+          const metadata = authData.user?.user_metadata as Record<string, unknown> | undefined;
+          const displayName =
+            (typeof metadata?.display_name === 'string' && metadata.display_name) ||
+            (typeof metadata?.full_name === 'string' && metadata.full_name) ||
+            (typeof metadata?.name === 'string' && metadata.name) ||
+            authData.user?.email?.split('@')[0] ||
+            null;
+
+          const { error } = await supabase.from('profiles').insert({
+            user_id: this.user!,
+            display_name: displayName,
+          });
+
+          if (error && error.code !== '23505') {
+            return { success: false as const, error: error.message };
+          }
+
+          const retry = await client.profile.getMe();
+          if (retry.status === 200 && retry.body) {
+            return { success: true as const, profile: retry.body };
+          }
+        }
+
+        const message =
+          response.status === 404
+            ? 'Profile not found'
+            : 'message' in (response.body ?? {})
+              ? String((response.body as { message: string }).message)
+              : 'Could not load profile';
+
+        return { success: false as const, error: message };
+      } catch (e: unknown) {
+        const message = e instanceof Error ? e.message : 'Could not load profile';
+        return { success: false as const, error: message };
       }
     },
 

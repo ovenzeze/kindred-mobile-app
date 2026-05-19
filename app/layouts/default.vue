@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-default flex flex-col max-w-md mx-auto relative shadow-xl overflow-hidden">
+  <div class="kindred-glass-strong relative mx-auto flex min-h-screen max-w-md flex-col overflow-hidden">
     <AppHeader />
 
     <main class="flex-1 overflow-y-auto pb-20">
@@ -12,7 +12,6 @@
 
 <style>
 body {
-  background-color: var(--ui-bg-muted);
   overscroll-behavior-y: contain;
 }
 </style>

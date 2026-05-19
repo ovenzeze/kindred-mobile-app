@@ -40,10 +40,31 @@
     >
       Sign In
     </UButton>
+
+    <div class="relative my-6">
+      <div class="absolute inset-0 flex items-center">
+        <span class="w-full border-t border-slate-200 dark:border-slate-800" />
+      </div>
+      <div class="relative flex justify-center text-xs uppercase">
+        <span class="bg-white dark:bg-slate-950 px-2 text-muted-foreground">Or continue with</span>
+      </div>
+    </div>
+
+    <UButton
+      color="neutral"
+      variant="outline"
+      block
+      icon="i-simple-icons-google"
+      :loading="loading"
+      :disabled="loading"
+      @click="authStore.loginWithGoogle()"
+    >
+      Google
+    </UButton>
   </UForm>
 
   <div class="mt-6 text-center">
-    <p class="text-sm text-muted">
+    <p class="text-sm text-muted-foreground">
       Don't have an account?
       <NuxtLink to="/auth/register" class="font-medium text-primary hover:text-primary/80">
         Sign up

@@ -17,11 +17,23 @@ export default defineNuxtConfig({
 
   modules: [
     '@nuxt/ui',
+    '@nuxtjs/supabase',
     '@pinia/nuxt',
     '@vite-pwa/nuxt',
     '@nuxt/image',
     '@nuxt/fonts'
   ],
+
+  supabase: {
+    clientOptions: {
+      db: { schema: 'kindred' },
+    },
+    redirectOptions: {
+      login: '/auth/login',
+      callback: '/auth/callback',
+      exclude: ['/auth/register', '/ui-kit'],
+    },
+  },
 
   css: ['~/assets/css/main.css'],
 

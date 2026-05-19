@@ -27,3 +27,7 @@
 ## 与后端对齐
 
 后端仓库：`kindred-api-server`。契约优先原则与 `docs/rules/api.md` 一致；前端变更应跟随后端 `src/contracts/` 或已部署的 `/api/openapi.json`。
+
+若 `appContract` 注册了 `generated-api.ts` 中尚不存在的 router，ts-rest 客户端会在运行时抛 `Endpoint X not found`。临时修复：在 `app/shared-contracts/index.ts` 注释对应导出；长期修复：部署后端并执行 `npm run update-api` 后再注册。
+
+来源：`openmemory.md`、`docs/rules/agent-browser-qa.md`

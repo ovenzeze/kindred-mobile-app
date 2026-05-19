@@ -139,3 +139,20 @@ agent-browser --session kindred-qa record stop
 - 移动端视口下按钮、导航、卡片和表单文字不能重叠或被裁切。
 - API 失败、空列表、未登录状态都必须有明确 UI 状态。
 - 每个发现的问题都要先复现一次，再开始正式取证。
+
+## 进阶问题排查 (Troubleshooting)
+
+### 1. 意外的重定向 (Unexpected Redirects)
+若访问 `/auth/login` 却被重定向到 `/login` 并导致 404，检查是否安装了 `@nuxtjs/supabase`。该模块默认会将未认证请求重定向到 `/login`。
+**修复方案**：在 `nuxt.config.ts` 中显式配置 `supabase.redirectOptions`。
+
+### 2. 运行时 500 错误
+若首页加载失败，检查 `agent-browser console`。如果出现 `Endpoint X not found`，通常是因为 `app/shared-contracts/index.ts` 中导出了尚未在 `generated-api.ts` 中定义的契约。
+**修复方案**：暂时注释掉 `index.ts` 中缺失的契约导出。
+
+### 3. 多端适配验证
+验收时建议切换视口大小以验证移动端响应式：
+```bash
+agent-browser --session kindred-qa viewport 375 812
+agent-browser --session kindred-qa screenshot --annotate dogfood-output/screenshots/mobile_view.png
+```
