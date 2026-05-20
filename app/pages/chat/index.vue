@@ -2,13 +2,13 @@
   <div class="flex flex-col h-full">
     <AppHeader>
       <template #left>
-        <h1 class="text-xl font-bold text-highlighted">Messages</h1>
+        <h1 class="text-xl font-bold text-foreground">Messages</h1>
       </template>
     </AppHeader>
 
     <div class="flex-1 overflow-y-auto">
-      <div v-if="loading" class="p-4 space-y-3">
-        <USkeleton v-for="i in 4" :key="i" class="h-20 w-full" />
+      <div v-if="loading" class="flex flex-col gap-3 p-4">
+        <Skeleton v-for="i in 4" :key="i" class="h-20 w-full" />
       </div>
 
       <div v-else-if="chats.length > 0">
@@ -19,8 +19,8 @@
         />
       </div>
 
-      <div v-else class="flex flex-col items-center justify-center h-64 text-dimmed">
-        <UIcon name="i-lucide-message-circle" class="w-12 h-12 opacity-20" />
+      <div v-else class="flex flex-col items-center justify-center h-64 text-muted-foreground">
+        <MessageCircleIcon class="size-12 opacity-20" />
         <p class="mt-2">{{ error || 'No messages yet.' }}</p>
       </div>
     </div>
@@ -28,6 +28,8 @@
 </template>
 
 <script setup lang="ts">
+import { MessageCircleIcon } from 'lucide-vue-next';
+import { Skeleton } from '~/components/ui/skeleton';
 import { formatRelativeTime } from '~/utils/format';
 
 definePageMeta({

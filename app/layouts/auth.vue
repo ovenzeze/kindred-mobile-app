@@ -4,7 +4,7 @@
       <div class="mx-auto w-full max-w-sm">
         <div class="text-center mb-8">
           <h1 class="kindred-gradient-text text-3xl font-bold">Kindred</h1>
-          <p class="mt-2 text-sm text-muted">
+          <p class="mt-2 text-sm text-muted-foreground">
             <slot name="subtitle">{{ route.meta.authSubtitle }}</slot>
           </p>
         </div>

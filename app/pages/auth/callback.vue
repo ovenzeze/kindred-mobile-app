@@ -1,13 +1,15 @@
 <template>
   <div class="flex items-center justify-center min-h-screen">
     <div class="text-center">
-      <UIcon name="i-lucide-loader-circle" class="w-8 h-8 animate-spin mx-auto text-primary" />
-      <p class="mt-4 text-muted">Completing sign in...</p>
+      <LoaderCircleIcon class="mx-auto size-8 animate-spin text-primary" />
+      <p class="mt-4 text-muted-foreground">Completing sign in...</p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { LoaderCircleIcon } from 'lucide-vue-next';
+
 const supabase = useSupabaseClient();
 const authStore = useAuthStore();
 const router = useRouter();

@@ -1,30 +1,30 @@
 <template>
   <NuxtLink
     :to="'/chat/' + id"
-    class="flex items-center gap-3 p-4 hover:bg-elevated transition-colors border-b border-muted"
+    class="flex items-center gap-3 border-b border-border p-4 transition-colors hover:bg-muted"
   >
-    <UAvatar
-      :src="imageUrl"
-      :alt="name"
-      size="lg"
-      class="shadow-sm"
-    />
+    <Avatar size="lg" class="shadow-sm">
+      <AvatarImage :src="imageUrl" :alt="name" />
+      <AvatarFallback>{{ initials }}</AvatarFallback>
+    </Avatar>
 
     <div class="flex-1 overflow-hidden">
       <div class="flex justify-between items-baseline">
-        <h3 class="font-semibold text-highlighted truncate">{{ name }}</h3>
-        <span class="text-dimmed text-xs">{{ lastMessageTime }}</span>
+        <h3 class="font-semibold text-foreground truncate">{{ name }}</h3>
+        <span class="text-muted-foreground text-xs">{{ lastMessageTime }}</span>
       </div>
-      <p class="text-sm text-muted truncate mt-0.5">{{ lastMessage }}</p>
+      <p class="text-sm text-muted-foreground truncate mt-0.5">{{ lastMessage }}</p>
     </div>
 
-    <div v-if="unreadCount && unreadCount > 0" class="w-5 h-5 bg-primary rounded-full flex items-center justify-center">
-      <span class="text-inverted text-[10px] font-medium">{{ unreadCount }}</span>
+    <div v-if="unreadCount && unreadCount > 0" class="flex size-5 items-center justify-center rounded-full bg-primary">
+      <span class="text-primary-foreground text-[10px] font-medium">{{ unreadCount }}</span>
     </div>
   </NuxtLink>
 </template>
 
 <script setup lang="ts">
+import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
+
 interface Props {
   id: string
   name: string
@@ -34,5 +34,12 @@ interface Props {
   unreadCount?: number
 }
 
-defineProps<Props>()
+const props = defineProps<Props>();
+
+const initials = computed(() => {
+  const words = props.name.trim().split(/\s+/).filter(Boolean);
+  return words.length > 0
+    ? words.map((word) => word[0]).join('').slice(0, 2).toUpperCase()
+    : '?';
+});
 </script>

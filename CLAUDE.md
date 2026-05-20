@@ -1,6 +1,6 @@
 # CLAUDE.md — Kindred Mobile Web App
 
-> **Maintained:** 2026-05-19  
+> **Maintained:** 2026-05-20  
 > **Project:** kindred-mobile-app — Nuxt 4 + Vue 3 + ts-rest 移动端 Web
 
 ---
@@ -16,7 +16,7 @@
 
 **当前规则文件：**
 - `docs/rules/frontend.md` — Nuxt 结构、路由守卫、API 客户端
-- `docs/rules/nuxt-ui.md` — Nuxt UI v4 安装、主题、组件和验收规则
+- `docs/rules/shadcn-vue.md` — shadcn-vue 安装、主题、组件和验收规则
 - `docs/rules/contracts.md` — 与后端 OpenAPI 同步 shared-contracts
 - `docs/rules/agent-browser-qa.md` — 使用 agent-browser 做前端测试验收
 

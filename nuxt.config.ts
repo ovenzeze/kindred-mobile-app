@@ -1,3 +1,5 @@
+import tailwindcss from '@tailwindcss/vite'
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   ssr: false,
@@ -10,21 +12,32 @@ export default defineNuxtConfig({
   },
 
   vite: {
+    plugins: [
+      tailwindcss(),
+    ],
+    optimizeDeps: {
+      include: [
+        '@ts-rest/core',
+        '@zodios/core',
+      ],
+    },
     server: {
       allowedHosts: ['kindred.deth.dev', '.deth.dev'],
     },
   },
 
   modules: [
-    '@nuxt/ui',
     '@nuxtjs/supabase',
     '@pinia/nuxt',
     '@vite-pwa/nuxt',
     '@nuxt/image',
-    '@nuxt/fonts'
+    '@nuxt/fonts',
+    'shadcn-nuxt'
   ],
 
   supabase: {
+    types: false,
+    redirect: false,
     clientOptions: {
       db: { schema: 'kindred' },
     },
@@ -37,17 +50,9 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
-  ui: {
-    theme: {
-      colors: [
-        'primary',
-        'secondary',
-        'success',
-        'info',
-        'warning',
-        'error',
-      ],
-    },
+  shadcn: {
+    prefix: '',
+    componentDir: './app/components/ui',
   },
 
   // Nuxt 4 preference

@@ -5,7 +5,7 @@
 ## 技术栈
 
 - **框架:** Nuxt 4（`ssr: false`，SPA 体验）
-- **UI:** Nuxt UI 4
+- **UI:** shadcn-vue + shadcn-nuxt
 - **状态:** Pinia
 - **API:** @ts-rest/core + `app/shared-contracts`
 - **PWA:** @vite-pwa/nuxt
@@ -49,7 +49,7 @@ kindred-mobile-app/
 │   └── shared-contracts/ # API 契约
 ├── scripts/update-api.sh
 ├── workflow/maintenance.md
-├── docs/rules/           # frontend, contracts, nuxt-ui, agent-browser-qa
+├── docs/rules/           # frontend, contracts, shadcn-vue, agent-browser-qa
 ├── CLAUDE.md
 ├── openmemory.md
 ├── nuxt.config.ts
@@ -63,4 +63,5 @@ kindred-mobile-app/
 ## 项目进展
 
 - **2026-05-17:** 发现页、匹配、聊天、资料等初版 UI；契约与后端对齐。
-- **2026-05-18:** 建立三层文档体系（CLAUDE / openmemory / docs/rules）；补充 Nuxt UI v4 接入规则（`docs/rules/nuxt-ui.md`）与 agent-browser 验收规则；修复全局 CSS 入口；契约同步 albums/profileFields v2。
+- **2026-05-18:** 建立三层文档体系（CLAUDE / openmemory / docs/rules）；补充 UI 接入规则与 agent-browser 验收规则；修复全局 CSS 入口；契约同步 albums/profileFields v2。
+- **2026-05-19:** UI 框架从 Nuxt UI 4 切换为 shadcn-vue + shadcn-nuxt，并安装官方全量组件到 `app/components/ui/`。

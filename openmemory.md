@@ -46,32 +46,41 @@
 
 ---
 
-## 待决事项
+### shadcn-vue UI 栈（2026-05-19）
 
-- 相册 UI 与 R2 预签名直传流程 — 未实现（契约已就绪）
+**决策：** UI 从 Nuxt UI 4 迁移至 `shadcn-vue` + `shadcn-nuxt`；组件源码在 `app/components/ui/`；全局样式入口为 `nuxt.config.ts` 的 `css: ['~/assets/css/main.css']`，`main.css` 导入 `tailwindcss`、`tw-animate-css`、`shadcn-vue/tailwind.css`。字体为 Sora（正文）与 Fraunces（标题）。
+
+**事实来源：** `package.json`、`nuxt.config.ts`、`components.json`、`app/assets/css/main.css`、`docs/rules/shadcn-vue.md`
+
+**已替代：** `docs/rules/nuxt-ui.md`、`@nuxt/ui` module、`app/app.config.ts` — 不再使用。
+
+---
+
+### Google 登录与 Supabase 重定向（2026-05-18）
+
+**决策：**
+1. **Google 登录：** `@nuxtjs/supabase` + `authStore.loginWithGoogle()` + `app/pages/auth/callback.vue`。
+2. **Supabase 重定向：** `nuxt.config.ts` 中 `redirectOptions.login` 设为 `/auth/login`、`callback` 设为 `/auth/callback`，避免模块默认 `/login` 导致 404。
+3. **契约容错：** `albums` / `profileFields` 在 OpenAPI 未同步前于 `app/shared-contracts/index.ts` 保持注释。
+
+**主题（已由 2026-05-19 shadcn-vue 迁移替代）：** 不再使用 Rose/Indigo/Inter/`--ui-radius` 的 Nuxt UI 主题方案；当前以 shadcn 语义 token 与 `app/assets/css/main.css` 为准。
+
+**事实来源：** `app/stores/auth.ts`、`nuxt.config.ts`、`app/shared-contracts/index.ts`
 
 ---
 
 ### agent-browser 本地验收经验
 
-**经验：** 在当前 Multica Linux 环境中，`agent-browser` 首次启动 Chrome 可能报 `No usable sandbox`；使用 `agent-browser --session kindred-qa --args "--no-sandbox" open http://localhost:5102` 可绕过。若 daemon 已启动且提示 `--args ignored`，先关闭 session 再重新打开。
+**经验：** 在 Multica Linux 环境中，`agent-browser` 首次启动 Chrome 可能报 `No usable sandbox`；使用 `agent-browser --session kindred-qa --args "--no-sandbox" open http://localhost:5102` 可绕过。若 daemon 已启动且 `--args` 被忽略，先关闭 session 再重新打开。
 
-**事实来源：** 2026-05-18 本地执行 `agent-browser doctor --offline --quick` 与 `agent-browser --session kindred-guide open http://localhost:5102`
+**事实来源：** 2026-05-18 本地执行 `agent-browser doctor --offline --quick`
 
-**补充经验：** `snapshot -i` 不能验证视觉样式是否加载。2026-05-18 复查 `/auth/login` 时，页面可访问性树存在登录表单，但截图显示原始 HTML 样式；根因是 Nuxt UI v4 缺少全局 CSS 入口。修复为 `nuxt.config.ts` 配置 `css: ['~/assets/css/main.css']`，并在 `app/assets/css/main.css` 导入 `tailwindcss` 与 `@nuxt/ui`。后续验收登录/注册页必须同时保存截图并用 `eval` 检查关键元素 computed style。
+**补充经验：** `snapshot -i` 不能验证视觉样式是否加载。登录/注册页验收须同时截图并用 `eval` 检查关键元素 computed style（见 `docs/rules/agent-browser-qa.md`）。
 
-**补充决策：** Nuxt UI v4 接入不只检查页面是否有样式。必须同时确认 `@nuxt/ui` module、CSS 入口、`UApp`、`app.config.ts` 主题、语义色 `color` prop、Lucide 图标、`UForm` 表单模式，以及 `.nuxt/ui/<component>.ts` slot 名称。项目规则见 `docs/rules/nuxt-ui.md`。
+**补充决策：** UI 接入须确认 `shadcn-nuxt` module、`components.json`、CSS 入口、`Toaster`、Lucide 图标、`FieldGroup` 表单模式，以及 `app/components/ui/<component>` 源码。规则见 `docs/rules/shadcn-vue.md`。
 
 ---
 
-### Google 登录与主题现代化 (2026-05-18)
+## 待决事项
 
-**决策：**
-1. **Google 登录集成**：引入 `@nuxtjs/supabase` 模块，在 `auth` store 中新增 `loginWithGoogle`，并增加 `app/pages/auth/callback.vue` 处理 OAuth 回调。
-2. **主题升级**：将主色调从 Rose 切换为 Indigo，中性色调整为 Slate。在 `main.css` 中引入 Inter 字体并统一 `--ui-radius` 为 `0.75rem`。
-3. **Supabase 重定向修复**：`@nuxtjs/supabase` 默认将未登录用户重定向到 `/login`，已在 `nuxt.config.ts` 中配置 `redirectOptions` 统一到 `/auth/login`。
-4. **契约容错**：由于后端 API 尚未部署 `albums` 和 `profileFields`，暂时在 `app/shared-contracts/index.ts` 中注释掉相关契约，以修复首页 500 错误。
-
-**经验：**
-- 使用 `agent-browser` 发现重定向循环或 404 时，检查是否是模块（如 Supabase）的默认行为与项目路径（如 `/auth/login` vs `/login`）不一致。
-- 即使前一个 Agent 声称修复了样式或功能，务必使用 `agent-browser` 重新截图验证，事实胜于雄辩。
+- 相册 UI 与 R2 预签名直传流程 — 未实现（契约已就绪）

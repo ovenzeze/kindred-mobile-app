@@ -56,7 +56,7 @@ export const useAuthStore = defineStore('auth', {
         const { useApi } = await import('~/composables/useApi');
         const { client } = useApi();
 
-        const response = await client.auth.login({ email, password });
+        const response = await client.auth.login({ body: { email, password } });
 
         if (response.body?.session) {
           this.setSession(response.body.session, response.body.session.userId);
@@ -105,7 +105,9 @@ export const useAuthStore = defineStore('auth', {
         const { useApi } = await import('~/composables/useApi');
         const { client } = useApi();
 
-        const response = await client.auth.register({ email, password, displayName });
+        const response = await client.auth.register({
+          body: { email, password, displayName },
+        });
 
         if (response.body?.session) {
           this.setSession(response.body.session, response.body.session.userId);
@@ -153,7 +155,7 @@ export const useAuthStore = defineStore('auth', {
         const { client } = useApi();
 
         const response = await client.auth.refresh({
-          refreshToken: this.session.refreshToken,
+          body: { refreshToken: this.session.refreshToken },
         });
 
         if (response.body?.session) {

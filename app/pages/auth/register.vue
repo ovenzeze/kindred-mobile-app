@@ -1,71 +1,81 @@
 <template>
-  <UForm :state="form" :validate="validateForm" class="space-y-6" @submit="handleSubmit">
-    <UFormField label="Display Name" name="displayName" required>
-      <UInput
+  <form class="flex flex-col gap-6" @submit.prevent="handleSubmit">
+    <FieldGroup>
+      <Field :data-invalid="!!fieldErrors.displayName">
+        <FieldLabel for="displayName">Display Name</FieldLabel>
+        <Input
+        id="displayName"
         v-model="form.displayName"
-        class="w-full"
         type="text"
         placeholder="Your name"
         autocomplete="name"
+        :aria-invalid="!!fieldErrors.displayName"
         :disabled="loading"
       />
-    </UFormField>
+        <FieldError v-if="fieldErrors.displayName">{{ fieldErrors.displayName }}</FieldError>
+      </Field>
 
-    <UFormField label="Email" name="email" required>
-      <UInput
+      <Field :data-invalid="!!fieldErrors.email">
+        <FieldLabel for="email">Email</FieldLabel>
+        <Input
+        id="email"
         v-model="form.email"
-        class="w-full"
         type="email"
         placeholder="you@example.com"
         autocomplete="email"
+        :aria-invalid="!!fieldErrors.email"
         :disabled="loading"
       />
-    </UFormField>
+        <FieldError v-if="fieldErrors.email">{{ fieldErrors.email }}</FieldError>
+      </Field>
 
-    <UFormField label="Password" name="password" required>
-      <UInput
+      <Field :data-invalid="!!fieldErrors.password">
+        <FieldLabel for="password">Password</FieldLabel>
+        <Input
+        id="password"
         v-model="form.password"
-        class="w-full"
         type="password"
         placeholder="At least 8 characters"
         autocomplete="new-password"
+        :aria-invalid="!!fieldErrors.password"
         :disabled="loading"
       />
-    </UFormField>
+        <FieldError v-if="fieldErrors.password">{{ fieldErrors.password }}</FieldError>
+      </Field>
 
-    <UFormField label="Confirm Password" name="confirmPassword" required>
-      <UInput
+      <Field :data-invalid="!!fieldErrors.confirmPassword">
+        <FieldLabel for="confirmPassword">Confirm Password</FieldLabel>
+        <Input
+        id="confirmPassword"
         v-model="form.confirmPassword"
-        class="w-full"
         type="password"
         placeholder="Confirm your password"
         autocomplete="new-password"
+        :aria-invalid="!!fieldErrors.confirmPassword"
         :disabled="loading"
       />
-    </UFormField>
+        <FieldError v-if="fieldErrors.confirmPassword">{{ fieldErrors.confirmPassword }}</FieldError>
+      </Field>
+    </FieldGroup>
 
-    <UAlert
-      v-if="authStore.error"
-      icon="i-lucide-circle-alert"
-      color="error"
-      variant="soft"
-      :title="authStore.error"
-      class="mb-4"
-    />
+    <Alert v-if="authStore.error" variant="destructive">
+      <CircleAlertIcon />
+      <AlertTitle>{{ authStore.error }}</AlertTitle>
+    </Alert>
 
-    <UButton
+    <Button
       type="submit"
-      block
       size="lg"
-      :loading="loading"
+      class="w-full"
       :disabled="loading"
     >
+      <Spinner v-if="loading" data-icon="inline-start" />
       Create Account
-    </UButton>
-  </UForm>
+    </Button>
+  </form>
 
   <div class="mt-6 text-center">
-    <p class="text-sm text-muted">
+    <p class="text-sm text-muted-foreground">
       Already have an account?
       <NuxtLink to="/auth/login" class="font-medium text-primary hover:text-primary/80">
         Sign in
@@ -75,6 +85,13 @@
 </template>
 
 <script setup lang="ts">
+import { CircleAlertIcon } from 'lucide-vue-next';
+import { Alert, AlertTitle } from '~/components/ui/alert';
+import { Button } from '~/components/ui/button';
+import { Field, FieldError, FieldGroup, FieldLabel } from '~/components/ui/field';
+import { Input } from '~/components/ui/input';
+import { Spinner } from '~/components/ui/spinner';
+
 definePageMeta({
   layout: 'auth',
   middleware: 'guest',
@@ -85,6 +102,13 @@ const authStore = useAuthStore();
 const router = useRouter();
 
 const form = reactive({
+  displayName: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+});
+
+const fieldErrors = reactive({
   displayName: '',
   email: '',
   password: '',
@@ -128,6 +152,17 @@ const validateForm = (state: typeof form): FormError[] => {
 };
 
 const handleSubmit = async () => {
+  fieldErrors.displayName = '';
+  fieldErrors.email = '';
+  fieldErrors.password = '';
+  fieldErrors.confirmPassword = '';
+
+  const errors = validateForm(form);
+  for (const error of errors) {
+    fieldErrors[error.name as keyof typeof fieldErrors] = error.message;
+  }
+  if (errors.length > 0) return;
+
   const result = await authStore.register(
     form.email,
     form.password,

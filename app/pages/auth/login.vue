@@ -1,67 +1,67 @@
 <template>
-  <UForm :state="form" :validate="validateForm" class="space-y-6" @submit="handleSubmit">
-    <UFormField label="Email" name="email" required>
-      <UInput
+  <form class="flex flex-col gap-6" @submit.prevent="handleSubmit">
+    <FieldGroup>
+      <Field :data-invalid="!!fieldErrors.email">
+        <FieldLabel for="email">Email</FieldLabel>
+        <Input
+        id="email"
         v-model="form.email"
-        class="w-full"
         type="email"
         placeholder="you@example.com"
         autocomplete="email"
+        :aria-invalid="!!fieldErrors.email"
         :disabled="loading"
       />
-    </UFormField>
+        <FieldError v-if="fieldErrors.email">{{ fieldErrors.email }}</FieldError>
+      </Field>
 
-    <UFormField label="Password" name="password" required>
-      <UInput
+      <Field :data-invalid="!!fieldErrors.password">
+        <FieldLabel for="password">Password</FieldLabel>
+        <Input
+        id="password"
         v-model="form.password"
-        class="w-full"
         type="password"
         placeholder="Enter your password"
         autocomplete="current-password"
+        :aria-invalid="!!fieldErrors.password"
         :disabled="loading"
       />
-    </UFormField>
+        <FieldError v-if="fieldErrors.password">{{ fieldErrors.password }}</FieldError>
+      </Field>
+    </FieldGroup>
 
-    <UAlert
-      v-if="authStore.error"
-      icon="i-lucide-circle-alert"
-      color="error"
-      variant="soft"
-      :title="authStore.error"
-      class="mb-4"
-    />
+    <Alert v-if="authStore.error" variant="destructive">
+      <CircleAlertIcon />
+      <AlertTitle>{{ authStore.error }}</AlertTitle>
+    </Alert>
 
-    <UButton
+    <Button
       type="submit"
-      block
       size="lg"
-      :loading="loading"
+      class="w-full"
       :disabled="loading"
     >
+      <Spinner v-if="loading" data-icon="inline-start" />
       Sign In
-    </UButton>
+    </Button>
 
-    <div class="relative my-6">
-      <div class="absolute inset-0 flex items-center">
-        <span class="w-full border-t border-slate-200 dark:border-slate-800" />
-      </div>
-      <div class="relative flex justify-center text-xs uppercase">
-        <span class="bg-white dark:bg-slate-950 px-2 text-muted-foreground">Or continue with</span>
-      </div>
+    <div class="flex items-center gap-3">
+      <Separator class="flex-1" />
+      <span class="text-xs uppercase text-muted-foreground">Or continue with</span>
+      <Separator class="flex-1" />
     </div>
 
-    <UButton
-      color="neutral"
+    <Button
+      type="button"
       variant="outline"
-      block
-      icon="i-simple-icons-google"
-      :loading="loading"
+      class="w-full"
       :disabled="loading"
       @click="authStore.loginWithGoogle()"
     >
+      <ChromeIcon data-icon="inline-start" />
       Google
-    </UButton>
-  </UForm>
+    </Button>
+  </form>
 
   <div class="mt-6 text-center">
     <p class="text-sm text-muted-foreground">
@@ -74,6 +74,14 @@
 </template>
 
 <script setup lang="ts">
+import { ChromeIcon, CircleAlertIcon } from 'lucide-vue-next';
+import { Alert, AlertTitle } from '~/components/ui/alert';
+import { Button } from '~/components/ui/button';
+import { Field, FieldError, FieldGroup, FieldLabel } from '~/components/ui/field';
+import { Input } from '~/components/ui/input';
+import { Separator } from '~/components/ui/separator';
+import { Spinner } from '~/components/ui/spinner';
+
 definePageMeta({
   layout: 'auth',
   middleware: 'guest',
@@ -84,6 +92,11 @@ const authStore = useAuthStore();
 const router = useRouter();
 
 const form = reactive({
+  email: '',
+  password: '',
+});
+
+const fieldErrors = reactive({
   email: '',
   password: '',
 });
@@ -111,6 +124,15 @@ const validateForm = (state: typeof form): FormError[] => {
 };
 
 const handleSubmit = async () => {
+  fieldErrors.email = '';
+  fieldErrors.password = '';
+
+  const errors = validateForm(form);
+  for (const error of errors) {
+    fieldErrors[error.name as keyof typeof fieldErrors] = error.message;
+  }
+  if (errors.length > 0) return;
+
   const result = await authStore.login(form.email, form.password);
 
   if (result.success) {

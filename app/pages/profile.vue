@@ -2,97 +2,136 @@
   <div class="flex flex-col h-full">
     <AppHeader>
       <template #left>
-        <h1 class="text-xl font-bold text-highlighted">Profile</h1>
+        <h1 class="text-xl font-bold text-foreground">Profile</h1>
       </template>
       <template #right>
-        <UButton
-          icon="i-lucide-log-out"
+        <Button
           variant="ghost"
-          color="neutral"
+          size="icon"
           aria-label="Log out"
           @click="handleLogout"
-        />
+        >
+          <LogOutIcon />
+        </Button>
       </template>
     </AppHeader>
 
     <div class="flex-1 overflow-y-auto p-4">
-      <div v-if="loading" class="space-y-4">
-        <USkeleton class="w-24 h-24 rounded-full mx-auto" />
-        <USkeleton class="h-6 w-40 mx-auto" />
-        <USkeleton class="h-4 w-56 mx-auto" />
+      <div v-if="loading" class="flex flex-col gap-4">
+        <Skeleton class="mx-auto size-24 rounded-full" />
+        <Skeleton class="mx-auto h-6 w-40" />
+        <Skeleton class="mx-auto h-4 w-56" />
       </div>
 
       <template v-else-if="needsSetup">
         <div class="flex flex-col items-center mb-8">
-          <UAvatar size="3xl" icon="i-lucide-user" class="ring-4 ring-primary-500/20" />
+          <Avatar class="size-24 ring-4 ring-primary/20">
+            <AvatarFallback>
+              <UserIcon class="size-10" />
+            </AvatarFallback>
+          </Avatar>
           <h2 class="text-2xl font-bold mt-4">Set up your profile</h2>
-          <p class="text-muted text-center mt-1">Add a display name to get started.</p>
+          <p class="text-muted-foreground text-center mt-1">Add a display name to get started.</p>
         </div>
-        <UFormField label="Display name" class="mb-4">
-          <UInput v-model="editForm.displayName" class="w-full" placeholder="Your name" />
-        </UFormField>
-        <UAlert v-if="saveError" color="error" variant="soft" :title="saveError" class="mb-4" />
-        <UButton block size="lg" :loading="saving" @click="saveProfile">
+        <FieldGroup class="mb-4">
+          <Field :data-invalid="!!saveError">
+            <FieldLabel for="setup-display-name">Display name</FieldLabel>
+            <Input
+              id="setup-display-name"
+              v-model="editForm.displayName"
+              placeholder="Your name"
+              :aria-invalid="!!saveError"
+            />
+          </Field>
+        </FieldGroup>
+        <Alert v-if="saveError" variant="destructive" class="mb-4">
+          <CircleAlertIcon />
+          <AlertTitle>{{ saveError }}</AlertTitle>
+        </Alert>
+        <Button size="lg" class="w-full" :disabled="saving" @click="saveProfile">
+          <Spinner v-if="saving" data-icon="inline-start" />
           Continue
-        </UButton>
+        </Button>
       </template>
 
       <template v-else-if="profile">
         <div class="flex flex-col items-center mb-8">
-          <UAvatar
-            :src="avatarUrl"
-            size="3xl"
-            class="ring-4 ring-primary-500/20"
-          />
+          <Avatar class="size-24 ring-4 ring-primary/20">
+            <AvatarImage :src="avatarUrl" :alt="profile.displayName || 'You'" />
+            <AvatarFallback>{{ profileInitials }}</AvatarFallback>
+          </Avatar>
           <h2 class="text-2xl font-bold mt-4">
             {{ profile.displayName || 'You' }}<span v-if="age">, {{ age }}</span>
           </h2>
-          <p class="text-muted text-center mt-1">{{ profile.bio || 'No bio yet' }}</p>
+          <p class="text-muted-foreground text-center mt-1">{{ profile.bio || 'No bio yet' }}</p>
         </div>
 
-        <div class="space-y-2">
-          <UButton
-            label="Edit Profile"
-            icon="i-lucide-user-pen"
-            block
-            variant="soft"
-            color="neutral"
+        <div class="flex flex-col gap-2">
+          <Button
+            variant="secondary"
+            class="w-full"
             @click="openEdit = true"
-          />
+          >
+            <UserPenIcon data-icon="inline-start" />
+            Edit Profile
+          </Button>
         </div>
       </template>
 
-      <UAlert
-        v-else-if="error"
-        color="error"
-        variant="soft"
-        :title="error"
-        class="mt-4"
-      />
+      <Alert v-else-if="error" variant="destructive" class="mt-4">
+        <CircleAlertIcon />
+        <AlertTitle>{{ error }}</AlertTitle>
+      </Alert>
     </div>
 
-    <USlideover v-model:open="openEdit">
-      <template #content>
-        <div class="p-4 space-y-4">
-          <h3 class="text-lg font-semibold text-highlighted">Edit profile</h3>
-          <UFormField label="Display name">
-            <UInput v-model="editForm.displayName" class="w-full" />
-          </UFormField>
-          <UFormField label="Bio">
-            <UTextarea v-model="editForm.bio" class="w-full" :rows="4" />
-          </UFormField>
-          <UAlert v-if="saveError" color="error" variant="soft" :title="saveError" />
+    <Sheet v-model:open="openEdit">
+      <SheetContent side="right" class="w-full max-w-md">
+        <SheetHeader>
+          <SheetTitle>Edit profile</SheetTitle>
+        </SheetHeader>
+        <div class="flex flex-col gap-4 px-4 pb-4">
+          <FieldGroup>
+            <Field :data-invalid="!!saveError">
+              <FieldLabel for="edit-display-name">Display name</FieldLabel>
+              <Input
+                id="edit-display-name"
+                v-model="editForm.displayName"
+                :aria-invalid="!!saveError"
+              />
+            </Field>
+            <Field>
+              <FieldLabel for="edit-bio">Bio</FieldLabel>
+              <Textarea id="edit-bio" v-model="editForm.bio" :rows="4" />
+            </Field>
+          </FieldGroup>
+          <Alert v-if="saveError" variant="destructive">
+            <CircleAlertIcon />
+            <AlertTitle>{{ saveError }}</AlertTitle>
+          </Alert>
           <div class="flex gap-2">
-            <UButton variant="ghost" block @click="openEdit = false">Cancel</UButton>
-            <UButton block :loading="saving" @click="saveProfile">Save</UButton>
+            <Button variant="ghost" class="flex-1" @click="openEdit = false">Cancel</Button>
+            <Button class="flex-1" :disabled="saving" @click="saveProfile">
+              <Spinner v-if="saving" data-icon="inline-start" />
+              Save
+            </Button>
           </div>
         </div>
-      </template>
-    </USlideover>
+      </SheetContent>
+    </Sheet>
   </div>
 </template>
 
 <script setup lang="ts">
+import { CircleAlertIcon, LogOutIcon, UserIcon, UserPenIcon } from 'lucide-vue-next';
+import { Alert, AlertTitle } from '~/components/ui/alert';
+import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
+import { Button } from '~/components/ui/button';
+import { Field, FieldGroup, FieldLabel } from '~/components/ui/field';
+import { Input } from '~/components/ui/input';
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from '~/components/ui/sheet';
+import { Skeleton } from '~/components/ui/skeleton';
+import { Spinner } from '~/components/ui/spinner';
+import { Textarea } from '~/components/ui/textarea';
 import { calcAge } from '~/utils/format';
 
 definePageMeta({
@@ -127,6 +166,16 @@ const editForm = reactive({
 
 const avatarUrl = computed(() => profile.value?.photos?.[0] || '');
 const age = computed(() => calcAge(profile.value?.birthdate));
+const profileInitials = computed(() => {
+  const name = profile.value?.displayName?.trim() || 'You';
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((word) => word[0])
+    .join('')
+    .slice(0, 2)
+    .toUpperCase();
+});
 
 async function loadProfile() {
   loading.value = true;

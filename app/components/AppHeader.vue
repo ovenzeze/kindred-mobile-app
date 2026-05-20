@@ -7,8 +7,15 @@
     </div>
     <div class="flex items-center gap-2">
       <slot name="right">
-        <UButton icon="i-lucide-bell" variant="ghost" color="neutral" aria-label="Notifications" />
+        <Button variant="ghost" size="icon" aria-label="Notifications">
+          <BellIcon />
+        </Button>
       </slot>
     </div>
   </header>
 </template>
+
+<script setup lang="ts">
+import { BellIcon } from 'lucide-vue-next';
+import { Button } from '~/components/ui/button';
+</script>

@@ -68,7 +68,8 @@ EOF
 
 ```css
 @import "tailwindcss";
-@import "@nuxt/ui";
+@import "tw-animate-css";
+@import "shadcn-vue/tailwind.css";
 ```
 
 交互流程按以下顺序执行：
