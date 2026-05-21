@@ -4,7 +4,7 @@
       <template #left>
         <div>
           <p class="text-xs font-semibold uppercase text-primary">Local only</p>
-          <h1 class="text-xl font-bold text-foreground">Kindred UI Kit</h1>
+          <h1 class="cn-font-heading text-xl font-semibold text-foreground">Kindred UI Kit</h1>
         </div>
       </template>
       <template #right>
@@ -16,12 +16,14 @@
     </AppHeader>
 
     <div class="flex flex-1 flex-col gap-5 overflow-y-auto p-4">
-      <Card class="kindred-sheen">
+      <Card class="kindred-glass-strong kindred-sheen">
         <CardContent class="flex flex-col gap-4 p-5">
         <div class="flex items-start justify-between gap-3">
           <div>
             <p class="text-sm font-medium text-muted-foreground">Design direction</p>
-            <h2 class="mt-1 text-2xl font-bold text-foreground">Glass-first, warm, and tactile</h2>
+            <h2 class="cn-font-heading mt-1 text-3xl font-semibold leading-tight text-foreground">
+              Glass-first, warm, and tactile
+            </h2>
           </div>
           <SparklesIcon class="size-7 text-primary" />
         </div>
@@ -58,7 +60,7 @@
             <MessageCircleIcon data-icon="inline-start" />
             Message
           </Button>
-          <Button size="lg" variant="outline" class="border-warning/30 bg-warning/10 text-warning hover:bg-warning/20">
+          <Button size="lg" variant="outline" class="border-warning/30 bg-warning/15 text-warning hover:bg-warning/20">
             <StarIcon data-icon="inline-start" />
             Super
           </Button>
@@ -96,7 +98,7 @@
             <Textarea id="kit-bio" v-model="profile.bio" :rows="3" />
           </Field>
         </FieldGroup>
-        <div class="flex items-center justify-between rounded-3xl bg-card/35 p-3 ring-1 ring-white/40 backdrop-blur-xl dark:ring-white/10">
+        <div class="kindred-edge flex items-center justify-between rounded-xl bg-card/35 p-3 ring-1 ring-white/40 backdrop-blur-xl dark:ring-white/10">
           <div>
             <p class="text-sm font-medium text-foreground">Visible in discovery</p>
             <p class="text-xs text-muted-foreground">Preview profile components with live controls.</p>
@@ -112,7 +114,7 @@
           <CardDescription>The dating surface should feel photographic, dimensional, and direct.</CardDescription>
         </CardHeader>
         <CardContent>
-        <div class="relative overflow-hidden rounded-[2rem] bg-muted/45 p-4 ring-1 ring-white/40 backdrop-blur-xl dark:ring-white/10">
+        <div class="kindred-edge relative overflow-hidden rounded-xl bg-muted/45 p-4 ring-1 ring-white/40 backdrop-blur-xl dark:ring-white/10">
           <div class="flex items-center gap-3">
             <Avatar class="size-16">
               <AvatarImage src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=320&q=80" alt="Maya" />
@@ -190,8 +192,8 @@ const profile = reactive({
 const tags = ['Coffee', 'Design', 'Live music'];
 
 const tones = [
-  { label: 'Primary', class: 'bg-primary/15 text-primary' },
-  { label: 'Secondary', class: 'bg-secondary/70 text-secondary-foreground' },
-  { label: 'Warm', class: 'bg-warning/15 text-warning' },
+  { label: 'Primary', class: 'bg-primary/15 text-primary ring-primary/15' },
+  { label: 'Secondary', class: 'bg-secondary/20 text-secondary-foreground ring-secondary/30' },
+  { label: 'Warm', class: 'bg-warning/15 text-warning ring-warning/20' },
 ];
 </script>

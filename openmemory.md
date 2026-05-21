@@ -8,7 +8,7 @@
 
 ### API 基址通过 runtimeConfig
 
-**决策：** `useApi()` 读取 `runtimeConfig.public.apiBaseUrl`；本地开发在 `.env` 设置 `NUXT_PUBLIC_API_BASE_URL`，勿依赖 `nuxt.config.ts` 中过时的默认值。
+**决策：** `useApi()` 读取 `runtimeConfig.public.apiBaseUrl`；本地开发默认使用 `https://kapi.deth.dev/api/v1`，可通过 `.env` 的 `NUXT_PUBLIC_API_BASE_URL` 覆盖。
 
 **事实来源：** `nuxt.config.ts`、`app/composables/useApi.ts`、`.env.example`
 
@@ -48,7 +48,7 @@
 
 ### shadcn-vue UI 栈（2026-05-19）
 
-**决策：** UI 从 Nuxt UI 4 迁移至 `shadcn-vue` + `shadcn-nuxt`；组件源码在 `app/components/ui/`；全局样式入口为 `nuxt.config.ts` 的 `css: ['~/assets/css/main.css']`，`main.css` 导入 `tailwindcss`、`tw-animate-css`、`shadcn-vue/tailwind.css`。字体为 Sora（正文）与 Fraunces（标题）。
+**决策：** UI 从 Nuxt UI 4 迁移至 `shadcn-vue` + `shadcn-nuxt`；组件源码在 `app/components/ui/`；全局样式入口为 `nuxt.config.ts` 的 `css: ['~/assets/css/main.css']`；`main.css` 首行 Google Fonts `@import`（Sora / Fraunces），并导入 `tailwindcss`、`tw-animate-css`、`shadcn-vue/tailwind.css`。
 
 **事实来源：** `package.json`、`nuxt.config.ts`、`components.json`、`app/assets/css/main.css`、`docs/rules/shadcn-vue.md`
 
@@ -81,6 +81,15 @@
 
 ---
 
+### kapi OpenAPI 与手写 albums/profileFields（2026-05-21）
+
+**现状：** `https://kapi.deth.dev/api/openapi.json` 约 21 条 path，不含 albums/profileFields；`npm run update-api` 生成的 `generated-api.ts` 与之对齐。手写 `albums.ts` / `profile-fields.ts` 存在，但 `index.ts` 中 router 须保持注释直至部署同步。
+
+**验证：** `curl -s https://kapi.deth.dev/api/openapi.json` 检查 path；勿在未同步前取消 `index.ts` 注释。
+
+---
+
 ## 待决事项
 
 - 相册 UI 与 R2 预签名直传流程 — 未实现（契约已就绪）
+- 后端重新部署含 albums/profileFields 的 OpenAPI 后，再执行 `npm run update-api` 并注册契约

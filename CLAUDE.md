@@ -1,6 +1,6 @@
 # CLAUDE.md — Kindred Mobile Web App
 
-> **Maintained:** 2026-05-20  
+> **Maintained:** 2026-05-21  
 > **Project:** kindred-mobile-app — Nuxt 4 + Vue 3 + ts-rest 移动端 Web
 
 ---
@@ -47,6 +47,6 @@
 ## 当前关键事实
 
 - **开发端口：** `5102`（`nuxt.config.ts` + `package.json` scripts）
-- **API 基址：** `NUXT_PUBLIC_API_BASE_URL`，本地默认 `http://localhost:3102/api/v1`
+- **API 基址：** `NUXT_PUBLIC_API_BASE_URL`，本地默认 `https://kapi.deth.dev/api/v1`
 - **渲染：** `ssr: false`（SPA 体验）
 - **契约同步：** `npm run update-api` → `scripts/update-api.sh`

@@ -4,13 +4,13 @@
 
 使用 `agent-browser` 对 Kindred Mobile Web App 做前端验收、冒烟测试、探索式 QA、回归验证和截图取证。
 
-本地前端地址为 `http://localhost:5102`，后端 API 基址为 `http://localhost:3102/api/v1`。
+本地前端地址为 `http://localhost:5102`，后端 API 基址为 `https://kapi.deth.dev/api/v1`。
 
 ## 启动前检查
 
-1. 在 `kindred-api-server` 确认后端可访问：
+1. 确认后端 API 域名可访问：
    ```bash
-   bun run dev
+   curl -i https://kapi.deth.dev/api/v1/health
    ```
 2. 在 `kindred-mobile-app` 确认前端可访问：
    ```bash

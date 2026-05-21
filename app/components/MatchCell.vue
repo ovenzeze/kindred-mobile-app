@@ -1,7 +1,7 @@
 <template>
   <NuxtLink
     :to="'/chat/' + id"
-    class="flex items-center gap-3 border-b border-border p-4 transition-colors hover:bg-muted"
+    class="flex items-center gap-3 border-b border-white/35 bg-card/20 p-4 backdrop-blur-xl transition-colors hover:bg-card/35 dark:border-white/10"
   >
     <Avatar size="lg" class="shadow-sm">
       <AvatarImage :src="imageUrl" :alt="name" />

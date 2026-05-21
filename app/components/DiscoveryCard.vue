@@ -1,5 +1,5 @@
 <template>
-  <Card class="relative flex aspect-[3/4] w-full items-center justify-center overflow-hidden rounded-2xl bg-muted p-0 shadow-lg">
+  <Card class="kindred-glass-strong relative flex aspect-[3/4] w-full items-center justify-center overflow-hidden rounded-2xl p-0 shadow-2xl shadow-rose-950/15">
     <CardContent class="h-full w-full p-0">
     <div class="h-full w-full relative">
       <NuxtImg

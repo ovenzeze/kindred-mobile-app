@@ -63,7 +63,7 @@ export default defineNuxtConfig({
   // Environment variables
   runtimeConfig: {
     public: {
-      apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE_URL || 'http://localhost:3102/api/v1'
+      apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE_URL || 'https://kapi.deth.dev/api/v1'
     }
   },
 
@@ -72,7 +72,7 @@ export default defineNuxtConfig({
     head: {
       viewport: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0',
       meta: [
-        { name: 'theme-color', content: '#ffffff' }
+        { name: 'theme-color', content: '#fff7ed' }
       ]
     }
   },
@@ -83,7 +83,7 @@ export default defineNuxtConfig({
     manifest: {
       name: 'Kindred',
       short_name: 'Kindred',
-      theme_color: '#ffffff',
+      theme_color: '#fff7ed',
       icons: [
         {
           src: 'pwa-192x192.png',
