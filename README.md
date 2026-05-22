@@ -66,3 +66,4 @@ kindred-mobile-app/
 - **2026-05-18:** 建立三层文档体系（CLAUDE / openmemory / docs/rules）；补充 UI 接入规则与 agent-browser 验收规则；修复全局 CSS 入口；契约同步 albums/profileFields v2。
 - **2026-05-19:** UI 框架从 Nuxt UI 4 切换为 shadcn-vue + shadcn-nuxt，并安装官方全量组件到 `app/components/ui/`。
 - **2026-05-21:** 文档维护：默认 API 基址对齐 `kapi.deth.dev`；agent-browser 验收改 curl health；字体加载与 shadcn 规则同步。
+- **2026-05-22:** 文档维护：复核 kapi OpenAPI 仍缺 albums/profileFields；`index.ts` 注释策略不变。

@@ -81,7 +81,7 @@
 
 ---
 
-### kapi OpenAPI 与手写 albums/profileFields（2026-05-21）
+### kapi OpenAPI 与手写 albums/profileFields（2026-05-22 复核）
 
 **现状：** `https://kapi.deth.dev/api/openapi.json` 约 21 条 path，不含 albums/profileFields；`npm run update-api` 生成的 `generated-api.ts` 与之对齐。手写 `albums.ts` / `profile-fields.ts` 存在，但 `index.ts` 中 router 须保持注释直至部署同步。
 
