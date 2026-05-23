@@ -91,7 +91,7 @@ EOF
 - `/chat`：会话列表、空态、消息页入口。
 - `/profile`：资料展示、编辑入口、登录保护。
 
-已登录流程需要先通过 UI 登录一次，再保存状态：
+已登录流程需要先通过 UI 登录一次，再保存状态。测试账号凭据见 `.env.example` 中的 `SUPABASE_TEST_EMAIL` / `SUPABASE_TEST_PASSWORD`（复制到 `.env`，勿提交 `.env`）：
 
 ```bash
 agent-browser --session kindred-qa state save dogfood-output/auth-state.json
