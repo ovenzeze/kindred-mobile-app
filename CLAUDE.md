@@ -1,6 +1,6 @@
 # CLAUDE.md — Kindred Mobile Web App
 
-> **Maintained:** 2026-05-23  
+> **Maintained:** 2026-05-24  
 > **Project:** kindred-mobile-app — Nuxt 4 + Vue 3 + ts-rest 移动端 Web
 
 ---
@@ -36,7 +36,7 @@
 - `package.json` — 脚本、依赖、dev 端口（`nuxt dev --port 5102`）
 - `nuxt.config.ts` — `runtimeConfig.public.apiBaseUrl`、`@nuxtjs/supabase` 的 `redirectOptions`、全局 CSS 入口
 - `.env.example` — `NUXT_PUBLIC_API_BASE_URL`
-- `app/shared-contracts/` — ts-rest 契约与类型（与后端 API 对齐；连接 `kapi.deth.dev` 时 `albums` / `profileFields` 须在 `index.ts` 保持注释，见 `docs/rules/contracts.md`）
+- `app/shared-contracts/` — ts-rest 契约与类型（与后端 API 对齐；`albums` / `profileFields` 已在 `index.ts` 注册，见 `docs/rules/contracts.md`）
 - `app/composables/useApi.ts` — ts-rest 客户端、JWT 注入、401 刷新
 - `app/stores/auth.ts` — 会话持久化、邮箱登录/注册/刷新、`loginWithGoogle`
 - `app/middleware/auth.ts`、`app/middleware/guest.ts` — 路由守卫

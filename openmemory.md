@@ -38,11 +38,13 @@
 
 ---
 
-### 契约同步 v2（albums / profileFields）
+### ~~契约同步 v2（albums / profileFields 须保持注释）~~ → 已同步（2026-05-23）
 
-**决策：** 手写契约文件 `albums.ts`、`profile-fields.ts` 已存在；在 `npm run update-api` 生成的 `generated-api.ts` 尚未包含对应 endpoint 前，`app/shared-contracts/index.ts` 中 **不得** 注册 `albums` / `profileFields` router（否则运行时 500）。后端部署并同步 OpenAPI 后再取消注释。
+**原记忆：** OpenAPI 未含 albums/profileFields 前，不得在 `index.ts` 注册对应 router。
 
-**事实来源：** `app/shared-contracts/index.ts`、`app/shared-contracts/albums.ts`、`app/shared-contracts/profile-fields.ts`、`docs/rules/contracts.md`
+**当前状态：** `npm run update-api` 已同步；`index.ts` 已注册 `albums`、`profileFields`；`generated-api.ts` 含对应 path。
+
+**事实来源：** `app/shared-contracts/index.ts`、`curl` 验证 kapi 34 paths（见下节）
 
 ---
 
@@ -61,7 +63,7 @@
 **决策：**
 1. **Google 登录：** `@nuxtjs/supabase` + `authStore.loginWithGoogle()` + `app/pages/auth/callback.vue`。
 2. **Supabase 重定向：** `nuxt.config.ts` 中 `redirectOptions.login` 设为 `/auth/login`、`callback` 设为 `/auth/callback`，避免模块默认 `/login` 导致 404。
-3. **契约容错：** `albums` / `profileFields` 在 OpenAPI 未同步前于 `app/shared-contracts/index.ts` 保持注释。
+3. **契约：** `albums` / `profileFields` 已在 OpenAPI 同步后于 `index.ts` 注册（2026-05-23 起）。
 
 **主题（已由 2026-05-19 shadcn-vue 迁移替代）：** 不再使用 Rose/Indigo/Inter/`--ui-radius` 的 Nuxt UI 主题方案；当前以 shadcn 语义 token 与 `app/assets/css/main.css` 为准。
 
@@ -92,4 +94,3 @@
 ## 待决事项
 
 - 相册 UI 与 R2 预签名直传流程 — 未实现（契约已就绪）
-- 后端重新部署含 albums/profileFields 的 OpenAPI 后，再执行 `npm run update-api` 并注册契约
