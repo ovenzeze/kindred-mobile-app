@@ -175,7 +175,7 @@ export const useAuthStore = defineStore('auth', {
       try {
         const { useApi } = await import('~/composables/useApi');
         const { client } = useApi();
-        const response = await client.profile.getMe();
+        const response = await client.profile.getMe({});
 
         if (response.status === 200 && response.body) {
           return { success: true as const, profile: response.body };
@@ -201,7 +201,7 @@ export const useAuthStore = defineStore('auth', {
             return { success: false as const, error: error.message };
           }
 
-          const retry = await client.profile.getMe();
+          const retry = await client.profile.getMe({});
           if (retry.status === 200 && retry.body) {
             return { success: true as const, profile: retry.body };
           }

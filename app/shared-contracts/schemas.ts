@@ -44,8 +44,12 @@ const messagesListResponse = getEndpoint('chat.listMessages').response;
 export const MessageSchema = messagesListResponse.shape.messages.element;
 
 // --- Album Schemas ---
-export const AlbumSchema = getEndpoint('albums.listAlbums').response.element;
-export const AlbumPhotoSchema = getEndpoint('albums.listPhotos').response.element;
+const albumsListResponse = getEndpoint('albums.listAlbums').response;
+export const AlbumSchema = albumsListResponse.shape.albums.element;
+
+const albumPhotosResponse = getEndpoint('albums.listPhotos').response;
+export const AlbumPhotoSchema = albumPhotosResponse.shape.photos.element;
 
 // --- Profile Field Schemas ---
-export const ProfileFieldSchema = getEndpoint('profileFields.getMyFields').response.element;
+const profileFieldsResponse = getEndpoint('profileFields.getMyFields').response;
+export const ProfileFieldSchema = profileFieldsResponse.shape.fields.element;

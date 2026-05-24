@@ -58,7 +58,7 @@ async function loadChats() {
   error.value = null;
   try {
     const [conversationsRes, matchesRes] = await Promise.all([
-      client.chat.listConversations(),
+      client.chat.listConversations({}),
       client.matches.list({ query: {} }),
     ]);
 
@@ -77,12 +77,12 @@ async function loadChats() {
 
     const conversations = conversationsRes.body.conversations;
     const otherUserIds = conversations
-      .map((c) => matchMap.get(c.matchId))
+      .map((c: any) => matchMap.get(c.matchId))
       .filter((id): id is string => !!id);
 
     await userStore.fetchUsers(otherUserIds);
 
-    chats.value = conversations.map((c) => {
+    chats.value = conversations.map((c: any) => {
       const otherUserId = matchMap.get(c.matchId);
       const last = c.lastMessage;
       return {

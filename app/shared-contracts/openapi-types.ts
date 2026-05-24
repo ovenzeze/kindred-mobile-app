@@ -148,6 +148,214 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/me/fields": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["profileFields.getMyFields"];
+        put: operations["profileFields.upsertField"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/me/fields/{key}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["profileFields.getFieldByKey"];
+        put?: never;
+        post?: never;
+        delete: operations["profileFields.deleteField"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/users/{id}/fields": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["profileFields.listPublicFields"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/albums": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["albums.listAlbums"];
+        put?: never;
+        post: operations["albums.createAlbum"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/albums/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["albums.deleteAlbum"];
+        options?: never;
+        head?: never;
+        patch: operations["albums.updateAlbum"];
+        trace?: never;
+    };
+    "/albums/{id}/photos": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["albums.listPhotos"];
+        put?: never;
+        post: operations["albums.confirmUpload"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/albums/{id}/upload-url": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["albums.getUploadUrl"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/albums/{id}/photos/reorder": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch: operations["albums.reorderPhotos"];
+        trace?: never;
+    };
+    "/albums/{id}/photos/{photoId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["albums.deletePhoto"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/users/{id}/albums/public": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["albums.listPublicAlbums"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/users/{id}/albums": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["albums.listUserAlbums"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/albums/{id}/grants": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["albums.listGrants"];
+        put?: never;
+        post: operations["albums.grantAccess"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/albums/{id}/grants/{viewerId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["albums.revokeAccess"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/discovery": {
         parameters: {
             query?: never;
@@ -371,7 +579,33 @@ export interface operations {
                         /** @enum {string} */
                         status: "ok";
                         timestamp: string;
+                    } & {
+                        [key: string]: unknown;
                     };
+                };
+            };
+            /** @description 201 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        status: "ok";
+                        timestamp: string;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description 204 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
                 };
             };
         };
@@ -391,12 +625,14 @@ export interface operations {
                     email: string;
                     password: string;
                     displayName?: string;
+                } & {
+                    [key: string]: unknown;
                 };
             };
         };
         responses: {
-            /** @description 201 */
-            201: {
+            /** @description 200 */
+            200: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -408,6 +644,8 @@ export interface operations {
                             expiresAt: number;
                             /** Format: uuid */
                             userId: string;
+                        } & {
+                            [key: string]: unknown;
                         };
                         profile: {
                             /** Format: uuid */
@@ -423,8 +661,59 @@ export interface operations {
                             };
                             createdAt: string;
                             updatedAt: string;
+                        } & {
+                            [key: string]: unknown;
                         };
+                    } & {
+                        [key: string]: unknown;
                     };
+                };
+            };
+            /** @description 201 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        session: {
+                            accessToken: string;
+                            refreshToken: string;
+                            expiresAt: number;
+                            /** Format: uuid */
+                            userId: string;
+                        } & {
+                            [key: string]: unknown;
+                        };
+                        profile: {
+                            /** Format: uuid */
+                            userId: string;
+                            displayName: string | null;
+                            bio: string | null;
+                            birthdate: string | null;
+                            gender: string | null;
+                            orientation: string | null;
+                            photos: string[];
+                            preferences: {
+                                [key: string]: unknown;
+                            };
+                            createdAt: string;
+                            updatedAt: string;
+                        } & {
+                            [key: string]: unknown;
+                        };
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description 204 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
                 };
             };
             /** @description 400 */
@@ -435,6 +724,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         message: string;
+                    } & {
+                        [key: string]: unknown;
                     };
                 };
             };
@@ -454,6 +745,8 @@ export interface operations {
                     /** Format: email */
                     email: string;
                     password: string;
+                } & {
+                    [key: string]: unknown;
                 };
             };
         };
@@ -471,8 +764,42 @@ export interface operations {
                             expiresAt: number;
                             /** Format: uuid */
                             userId: string;
+                        } & {
+                            [key: string]: unknown;
                         };
+                    } & {
+                        [key: string]: unknown;
                     };
+                };
+            };
+            /** @description 201 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        session: {
+                            accessToken: string;
+                            refreshToken: string;
+                            expiresAt: number;
+                            /** Format: uuid */
+                            userId: string;
+                        } & {
+                            [key: string]: unknown;
+                        };
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description 204 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
                 };
             };
             /** @description 401 */
@@ -483,6 +810,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         message: string;
+                    } & {
+                        [key: string]: unknown;
                     };
                 };
             };
@@ -498,10 +827,30 @@ export interface operations {
         /** @description Body */
         requestBody?: {
             content: {
-                "application/json": Record<string, never>;
+                "application/json": {
+                    [key: string]: unknown;
+                };
             };
         };
         responses: {
+            /** @description 200 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description 201 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
             /** @description 204 */
             204: {
                 headers: {
@@ -525,6 +874,8 @@ export interface operations {
             content: {
                 "application/json": {
                     refreshToken: string;
+                } & {
+                    [key: string]: unknown;
                 };
             };
         };
@@ -542,37 +893,35 @@ export interface operations {
                             expiresAt: number;
                             /** Format: uuid */
                             userId: string;
+                        } & {
+                            [key: string]: unknown;
                         };
+                    } & {
+                        [key: string]: unknown;
                     };
                 };
             };
-            /** @description 401 */
-            401: {
+            /** @description 201 */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
                     "application/json": {
-                        message: string;
+                        session: {
+                            accessToken: string;
+                            refreshToken: string;
+                            expiresAt: number;
+                            /** Format: uuid */
+                            userId: string;
+                        } & {
+                            [key: string]: unknown;
+                        };
+                    } & {
+                        [key: string]: unknown;
                     };
                 };
             };
-        };
-    };
-    "auth.deleteAccount": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** @description Body */
-        requestBody?: {
-            content: {
-                "application/json": Record<string, never>;
-            };
-        };
-        responses: {
             /** @description 204 */
             204: {
                 headers: {
@@ -590,6 +939,66 @@ export interface operations {
                 content: {
                     "application/json": {
                         message: string;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+        };
+    };
+    "auth.deleteAccount": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Body */
+        requestBody?: {
+            content: {
+                "application/json": {
+                    [key: string]: unknown;
+                };
+            };
+        };
+        responses: {
+            /** @description 200 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description 201 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description 204 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description 401 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    } & {
+                        [key: string]: unknown;
                     };
                 };
             };
@@ -624,7 +1033,43 @@ export interface operations {
                         };
                         createdAt: string;
                         updatedAt: string;
+                    } & {
+                        [key: string]: unknown;
                     };
+                };
+            };
+            /** @description 201 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        userId: string;
+                        displayName: string | null;
+                        bio: string | null;
+                        birthdate: string | null;
+                        gender: string | null;
+                        orientation: string | null;
+                        photos: string[];
+                        preferences: {
+                            [key: string]: unknown;
+                        };
+                        createdAt: string;
+                        updatedAt: string;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description 204 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
                 };
             };
             /** @description 401 */
@@ -635,6 +1080,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         message: string;
+                    } & {
+                        [key: string]: unknown;
                     };
                 };
             };
@@ -646,6 +1093,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         message: string;
+                    } & {
+                        [key: string]: unknown;
                     };
                 };
             };
@@ -671,6 +1120,8 @@ export interface operations {
                     preferences?: {
                         [key: string]: unknown;
                     };
+                } & {
+                    [key: string]: unknown;
                 };
             };
         };
@@ -695,7 +1146,43 @@ export interface operations {
                         };
                         createdAt: string;
                         updatedAt: string;
+                    } & {
+                        [key: string]: unknown;
                     };
+                };
+            };
+            /** @description 201 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        userId: string;
+                        displayName: string | null;
+                        bio: string | null;
+                        birthdate: string | null;
+                        gender: string | null;
+                        orientation: string | null;
+                        photos: string[];
+                        preferences: {
+                            [key: string]: unknown;
+                        };
+                        createdAt: string;
+                        updatedAt: string;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description 204 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
                 };
             };
             /** @description 400 */
@@ -706,6 +1193,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         message: string;
+                    } & {
+                        [key: string]: unknown;
                     };
                 };
             };
@@ -717,6 +1206,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         message: string;
+                    } & {
+                        [key: string]: unknown;
                     };
                 };
             };
@@ -728,6 +1219,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         message: string;
+                    } & {
+                        [key: string]: unknown;
                     };
                 };
             };
@@ -746,6 +1239,8 @@ export interface operations {
                 "application/json": {
                     latitude: number;
                     longitude: number;
+                } & {
+                    [key: string]: unknown;
                 };
             };
         };
@@ -759,7 +1254,32 @@ export interface operations {
                     "application/json": {
                         /** @enum {boolean} */
                         ok: true;
+                    } & {
+                        [key: string]: unknown;
                     };
+                };
+            };
+            /** @description 201 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {boolean} */
+                        ok: true;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description 204 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
                 };
             };
             /** @description 401 */
@@ -770,6 +1290,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         message: string;
+                    } & {
+                        [key: string]: unknown;
                     };
                 };
             };
@@ -800,7 +1322,1048 @@ export interface operations {
                         birthdate: string | null;
                         gender: string | null;
                         photos: string[];
+                    } & {
+                        [key: string]: unknown;
                     };
+                };
+            };
+            /** @description 201 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        userId: string;
+                        displayName: string | null;
+                        bio: string | null;
+                        birthdate: string | null;
+                        gender: string | null;
+                        photos: string[];
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description 204 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description 404 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+        };
+    };
+    "profileFields.getMyFields": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 200 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        fields: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            userId: string;
+                            fieldKey: string;
+                            value: {
+                                [key: string]: unknown;
+                            };
+                            /** @enum {string} */
+                            visibility: "public" | "private";
+                            sortOrder: number;
+                            createdAt: string;
+                            updatedAt: string;
+                        }[];
+                    };
+                };
+            };
+            /** @description 500 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    "profileFields.upsertField": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Body */
+        requestBody?: {
+            content: {
+                "application/json": {
+                    fieldKey: string;
+                    value: {
+                        [key: string]: unknown;
+                    };
+                    /** @enum {string} */
+                    visibility?: "public" | "private";
+                    sortOrder?: number;
+                };
+            };
+        };
+        responses: {
+            /** @description 200 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        userId: string;
+                        fieldKey: string;
+                        value: {
+                            [key: string]: unknown;
+                        };
+                        /** @enum {string} */
+                        visibility: "public" | "private";
+                        sortOrder: number;
+                        createdAt: string;
+                        updatedAt: string;
+                    };
+                };
+            };
+            /** @description 400 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    "profileFields.getFieldByKey": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                key: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 200 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        userId: string;
+                        fieldKey: string;
+                        value: {
+                            [key: string]: unknown;
+                        };
+                        /** @enum {string} */
+                        visibility: "public" | "private";
+                        sortOrder: number;
+                        createdAt: string;
+                        updatedAt: string;
+                    };
+                };
+            };
+            /** @description 404 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    "profileFields.deleteField": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                key: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 204 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description 404 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    "profileFields.listPublicFields": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 200 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        fields: {
+                            fieldKey: string;
+                            value: {
+                                [key: string]: unknown;
+                            };
+                        }[];
+                    };
+                };
+            };
+            /** @description 500 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    "albums.listAlbums": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 200 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        albums: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            ownerId: string;
+                            title: string;
+                            /** @enum {string} */
+                            visibility: "public" | "private" | "granted_users";
+                            sortOrder: number;
+                            isDefault: boolean;
+                            createdAt: string;
+                            updatedAt: string;
+                        }[];
+                    };
+                };
+            };
+            /** @description 500 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    "albums.createAlbum": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Body */
+        requestBody?: {
+            content: {
+                "application/json": {
+                    title: string;
+                    /** @enum {string} */
+                    visibility?: "public" | "private" | "granted_users";
+                };
+            };
+        };
+        responses: {
+            /** @description 201 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        ownerId: string;
+                        title: string;
+                        /** @enum {string} */
+                        visibility: "public" | "private" | "granted_users";
+                        sortOrder: number;
+                        isDefault: boolean;
+                        createdAt: string;
+                        updatedAt: string;
+                    };
+                };
+            };
+            /** @description 400 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    "albums.deleteAlbum": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 204 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description 400 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    };
+                };
+            };
+            /** @description 404 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    };
+                };
+            };
+            /** @description 500 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    "albums.updateAlbum": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        /** @description Body */
+        requestBody?: {
+            content: {
+                "application/json": {
+                    title?: string;
+                    /** @enum {string} */
+                    visibility?: "public" | "private" | "granted_users";
+                    sortOrder?: number;
+                };
+            };
+        };
+        responses: {
+            /** @description 200 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        ownerId: string;
+                        title: string;
+                        /** @enum {string} */
+                        visibility: "public" | "private" | "granted_users";
+                        sortOrder: number;
+                        isDefault: boolean;
+                        createdAt: string;
+                        updatedAt: string;
+                    };
+                };
+            };
+            /** @description 400 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    };
+                };
+            };
+            /** @description 404 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    "albums.listPhotos": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 200 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        photos: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            albumId: string;
+                            /** Format: uuid */
+                            ownerId: string;
+                            objectKey: string;
+                            /** Format: uri */
+                            url: string;
+                            sortOrder: number;
+                            metadata: {
+                                [key: string]: unknown;
+                            };
+                            createdAt: string;
+                            updatedAt: string;
+                        }[];
+                    };
+                };
+            };
+            /** @description 403 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    };
+                };
+            };
+            /** @description 404 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    };
+                };
+            };
+            /** @description 500 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    "albums.confirmUpload": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        /** @description Body */
+        requestBody?: {
+            content: {
+                "application/json": {
+                    objectKey: string;
+                    /** Format: uri */
+                    url: string;
+                    metadata?: {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+        };
+        responses: {
+            /** @description 201 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        albumId: string;
+                        /** Format: uuid */
+                        ownerId: string;
+                        objectKey: string;
+                        /** Format: uri */
+                        url: string;
+                        sortOrder: number;
+                        metadata: {
+                            [key: string]: unknown;
+                        };
+                        createdAt: string;
+                        updatedAt: string;
+                    };
+                };
+            };
+            /** @description 400 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    };
+                };
+            };
+            /** @description 404 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    };
+                };
+            };
+            /** @description 409 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    "albums.getUploadUrl": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        /** @description Body */
+        requestBody?: {
+            content: {
+                "application/json": {
+                    objectKey?: string;
+                    contentType: string;
+                    expiresIn?: number;
+                };
+            };
+        };
+        responses: {
+            /** @description 200 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uri */
+                        uploadUrl: string;
+                        objectKey: string;
+                        expiresAt: number;
+                    };
+                };
+            };
+            /** @description 404 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    };
+                };
+            };
+            /** @description 500 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    "albums.reorderPhotos": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        /** @description Body */
+        requestBody?: {
+            content: {
+                "application/json": {
+                    photoOrders: {
+                        /** Format: uuid */
+                        photoId: string;
+                        sortOrder: number;
+                    }[];
+                };
+            };
+        };
+        responses: {
+            /** @description 200 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {boolean} */
+                        ok: true;
+                    };
+                };
+            };
+            /** @description 404 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    "albums.deletePhoto": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+                photoId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 204 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description 404 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    "albums.listPublicAlbums": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 200 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        albums: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            ownerId: string;
+                            title: string;
+                            /** @enum {string} */
+                            visibility: "public" | "private" | "granted_users";
+                            sortOrder: number;
+                            isDefault: boolean;
+                            createdAt: string;
+                            updatedAt: string;
+                        }[];
+                    };
+                };
+            };
+            /** @description 404 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    };
+                };
+            };
+            /** @description 500 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    "albums.listUserAlbums": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 200 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        albums: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            ownerId: string;
+                            title: string;
+                            /** @enum {string} */
+                            visibility: "public" | "private" | "granted_users";
+                            sortOrder: number;
+                            isDefault: boolean;
+                            createdAt: string;
+                            updatedAt: string;
+                        }[];
+                    };
+                };
+            };
+            /** @description 404 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    };
+                };
+            };
+            /** @description 500 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    "albums.listGrants": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 200 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        grants: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            albumId: string;
+                            /** Format: uuid */
+                            viewerId: string;
+                            isAllowed: boolean;
+                            revokedAt: string | null;
+                            createdAt: string;
+                            updatedAt: string;
+                        }[];
+                    };
+                };
+            };
+            /** @description 404 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    };
+                };
+            };
+            /** @description 500 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    "albums.grantAccess": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        /** @description Body */
+        requestBody?: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    viewerId: string;
+                    isAllowed?: boolean;
+                };
+            };
+        };
+        responses: {
+            /** @description 200 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        albumId: string;
+                        /** Format: uuid */
+                        viewerId: string;
+                        isAllowed: boolean;
+                        revokedAt: string | null;
+                        createdAt: string;
+                        updatedAt: string;
+                    };
+                };
+            };
+            /** @description 400 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    };
+                };
+            };
+            /** @description 404 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    };
+                };
+            };
+        };
+    };
+    "albums.revokeAccess": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+                viewerId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 204 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
                 };
             };
             /** @description 404 */
@@ -837,7 +2400,7 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        users: {
+                        users: ({
                             /** Format: uuid */
                             userId: string;
                             displayName: string | null;
@@ -845,8 +2408,44 @@ export interface operations {
                             birthdate: string | null;
                             gender: string | null;
                             photos: string[];
-                        }[];
+                        } & {
+                            [key: string]: unknown;
+                        })[];
+                    } & {
+                        [key: string]: unknown;
                     };
+                };
+            };
+            /** @description 201 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        users: ({
+                            /** Format: uuid */
+                            userId: string;
+                            displayName: string | null;
+                            bio: string | null;
+                            birthdate: string | null;
+                            gender: string | null;
+                            photos: string[];
+                        } & {
+                            [key: string]: unknown;
+                        })[];
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description 204 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
                 };
             };
             /** @description 401 */
@@ -857,6 +2456,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         message: string;
+                    } & {
+                        [key: string]: unknown;
                     };
                 };
             };
@@ -877,6 +2478,8 @@ export interface operations {
                     targetUserId: string;
                     /** @enum {string} */
                     action: "like" | "pass" | "super_like";
+                } & {
+                    [key: string]: unknown;
                 };
             };
         };
@@ -891,7 +2494,33 @@ export interface operations {
                         matched: boolean;
                         /** Format: uuid */
                         matchId?: string;
+                    } & {
+                        [key: string]: unknown;
                     };
+                };
+            };
+            /** @description 201 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        matched: boolean;
+                        /** Format: uuid */
+                        matchId?: string;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description 204 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
                 };
             };
             /** @description 401 */
@@ -902,6 +2531,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         message: string;
+                    } & {
+                        [key: string]: unknown;
                     };
                 };
             };
@@ -926,7 +2557,7 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        swipes: {
+                        swipes: ({
                             /** Format: uuid */
                             id: string;
                             /** Format: uuid */
@@ -935,8 +2566,45 @@ export interface operations {
                             action: "like" | "pass" | "super_like";
                             /** Format: date-time */
                             createdAt: string;
-                        }[];
+                        } & {
+                            [key: string]: unknown;
+                        })[];
+                    } & {
+                        [key: string]: unknown;
                     };
+                };
+            };
+            /** @description 201 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        swipes: ({
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            toUserId: string;
+                            /** @enum {string} */
+                            action: "like" | "pass" | "super_like";
+                            /** Format: date-time */
+                            createdAt: string;
+                        } & {
+                            [key: string]: unknown;
+                        })[];
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description 204 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
                 };
             };
             /** @description 401 */
@@ -947,6 +2615,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         message: string;
+                    } & {
+                        [key: string]: unknown;
                     };
                 };
             };
@@ -971,14 +2641,48 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        matches: {
+                        matches: ({
                             /** Format: uuid */
                             id: string;
                             /** Format: uuid */
                             otherUserId: string;
                             matchedAt: string;
-                        }[];
+                        } & {
+                            [key: string]: unknown;
+                        })[];
+                    } & {
+                        [key: string]: unknown;
                     };
+                };
+            };
+            /** @description 201 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        matches: ({
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            otherUserId: string;
+                            matchedAt: string;
+                        } & {
+                            [key: string]: unknown;
+                        })[];
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description 204 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
                 };
             };
             /** @description 401 */
@@ -989,6 +2693,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         message: string;
+                    } & {
+                        [key: string]: unknown;
                     };
                 };
             };
@@ -1017,33 +2723,28 @@ export interface operations {
                         /** Format: uuid */
                         otherUserId: string;
                         matchedAt: string;
+                    } & {
+                        [key: string]: unknown;
                     };
                 };
             };
-            /** @description 404 */
-            404: {
+            /** @description 201 */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
                     "application/json": {
-                        message: string;
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        otherUserId: string;
+                        matchedAt: string;
+                    } & {
+                        [key: string]: unknown;
                     };
                 };
             };
-        };
-    };
-    "matches.unmatch": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
             /** @description 204 */
             204: {
                 headers: {
@@ -1061,6 +2762,61 @@ export interface operations {
                 content: {
                     "application/json": {
                         message: string;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+        };
+    };
+    "matches.unmatch": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 200 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description 201 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description 204 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description 404 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    } & {
+                        [key: string]: unknown;
                     };
                 };
             };
@@ -1082,21 +2838,66 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        conversations: {
+                        conversations: ({
                             /** Format: uuid */
                             id: string;
                             /** Format: uuid */
                             matchId: string;
-                            lastMessage: {
+                            lastMessage: ({
                                 /** Format: uuid */
                                 id: string;
                                 body: string;
                                 /** Format: uuid */
                                 senderId: string;
                                 createdAt: string;
-                            } | null;
-                        }[];
+                            } & {
+                                [key: string]: unknown;
+                            }) | null;
+                        } & {
+                            [key: string]: unknown;
+                        })[];
+                    } & {
+                        [key: string]: unknown;
                     };
+                };
+            };
+            /** @description 201 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        conversations: ({
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            matchId: string;
+                            lastMessage: ({
+                                /** Format: uuid */
+                                id: string;
+                                body: string;
+                                /** Format: uuid */
+                                senderId: string;
+                                createdAt: string;
+                            } & {
+                                [key: string]: unknown;
+                            }) | null;
+                        } & {
+                            [key: string]: unknown;
+                        })[];
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description 204 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
                 };
             };
             /** @description 401 */
@@ -1107,6 +2908,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         message: string;
+                    } & {
+                        [key: string]: unknown;
                     };
                 };
             };
@@ -1133,7 +2936,7 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        messages: {
+                        messages: ({
                             /** Format: uuid */
                             id: string;
                             /** Format: uuid */
@@ -1143,8 +2946,46 @@ export interface operations {
                             body: string;
                             readAt: string | null;
                             createdAt: string;
-                        }[];
+                        } & {
+                            [key: string]: unknown;
+                        })[];
+                    } & {
+                        [key: string]: unknown;
                     };
+                };
+            };
+            /** @description 201 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        messages: ({
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            conversationId: string;
+                            /** Format: uuid */
+                            senderId: string;
+                            body: string;
+                            readAt: string | null;
+                            createdAt: string;
+                        } & {
+                            [key: string]: unknown;
+                        })[];
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description 204 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
                 };
             };
             /** @description 404 */
@@ -1155,6 +2996,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         message: string;
+                    } & {
+                        [key: string]: unknown;
                     };
                 };
             };
@@ -1174,55 +3017,9 @@ export interface operations {
             content: {
                 "application/json": {
                     body: string;
+                } & {
+                    [key: string]: unknown;
                 };
-            };
-        };
-        responses: {
-            /** @description 201 */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /** Format: uuid */
-                        id: string;
-                        /** Format: uuid */
-                        conversationId: string;
-                        /** Format: uuid */
-                        senderId: string;
-                        body: string;
-                        readAt: string | null;
-                        createdAt: string;
-                    };
-                };
-            };
-            /** @description 404 */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        message: string;
-                    };
-                };
-            };
-        };
-    };
-    "chat.markRead": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        /** @description Body */
-        requestBody?: {
-            content: {
-                "application/json": Record<string, never>;
             };
         };
         responses: {
@@ -1242,7 +3039,39 @@ export interface operations {
                         body: string;
                         readAt: string | null;
                         createdAt: string;
+                    } & {
+                        [key: string]: unknown;
                     };
+                };
+            };
+            /** @description 201 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        conversationId: string;
+                        /** Format: uuid */
+                        senderId: string;
+                        body: string;
+                        readAt: string | null;
+                        createdAt: string;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description 204 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
                 };
             };
             /** @description 404 */
@@ -1253,6 +3082,92 @@ export interface operations {
                 content: {
                     "application/json": {
                         message: string;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+        };
+    };
+    "chat.markRead": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        /** @description Body */
+        requestBody?: {
+            content: {
+                "application/json": {
+                    [key: string]: unknown;
+                };
+            };
+        };
+        responses: {
+            /** @description 200 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        conversationId: string;
+                        /** Format: uuid */
+                        senderId: string;
+                        body: string;
+                        readAt: string | null;
+                        createdAt: string;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description 201 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        conversationId: string;
+                        /** Format: uuid */
+                        senderId: string;
+                        body: string;
+                        readAt: string | null;
+                        createdAt: string;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description 204 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description 404 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                    } & {
+                        [key: string]: unknown;
                     };
                 };
             };
@@ -1275,7 +3190,31 @@ export interface operations {
                 content: {
                     "application/json": {
                         userIds: string[];
+                    } & {
+                        [key: string]: unknown;
                     };
+                };
+            };
+            /** @description 201 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        userIds: string[];
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description 204 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
                 };
             };
             /** @description 401 */
@@ -1286,6 +3225,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         message: string;
+                    } & {
+                        [key: string]: unknown;
                     };
                 };
             };
@@ -1304,10 +3245,26 @@ export interface operations {
                 "application/json": {
                     /** Format: uuid */
                     userId: string;
+                } & {
+                    [key: string]: unknown;
                 };
             };
         };
         responses: {
+            /** @description 200 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
             /** @description 201 */
             201: {
                 headers: {
@@ -1317,7 +3274,18 @@ export interface operations {
                     "application/json": {
                         /** Format: uuid */
                         id: string;
+                    } & {
+                        [key: string]: unknown;
                     };
+                };
+            };
+            /** @description 204 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
                 };
             };
             /** @description 401 */
@@ -1328,6 +3296,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         message: string;
+                    } & {
+                        [key: string]: unknown;
                     };
                 };
             };
@@ -1349,10 +3319,26 @@ export interface operations {
                     /** @enum {string} */
                     reason: "spam" | "harassment" | "inappropriate_content" | "fake_profile" | "other";
                     details?: string;
+                } & {
+                    [key: string]: unknown;
                 };
             };
         };
         responses: {
+            /** @description 200 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
             /** @description 201 */
             201: {
                 headers: {
@@ -1362,7 +3348,18 @@ export interface operations {
                     "application/json": {
                         /** Format: uuid */
                         id: string;
+                    } & {
+                        [key: string]: unknown;
                     };
+                };
+            };
+            /** @description 204 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
                 };
             };
             /** @description 401 */
@@ -1373,6 +3370,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         message: string;
+                    } & {
+                        [key: string]: unknown;
                     };
                 };
             };
@@ -1398,6 +3397,26 @@ export interface operations {
                     };
                 };
             };
+            /** @description 201 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description 204 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
             /** @description 401 */
             401: {
                 headers: {
@@ -1406,6 +3425,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         message: string;
+                    } & {
+                        [key: string]: unknown;
                     };
                 };
             };
@@ -1438,6 +3459,26 @@ export interface operations {
                     };
                 };
             };
+            /** @description 201 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description 204 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
             /** @description 401 */
             401: {
                 headers: {
@@ -1446,6 +3487,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         message: string;
+                    } & {
+                        [key: string]: unknown;
                     };
                 };
             };
@@ -1464,10 +3507,26 @@ export interface operations {
                 "application/json": {
                     platform: string;
                     pushToken: string;
+                } & {
+                    [key: string]: unknown;
                 };
             };
         };
         responses: {
+            /** @description 200 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
             /** @description 201 */
             201: {
                 headers: {
@@ -1477,7 +3536,18 @@ export interface operations {
                     "application/json": {
                         /** Format: uuid */
                         id: string;
+                    } & {
+                        [key: string]: unknown;
                     };
+                };
+            };
+            /** @description 204 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
                 };
             };
             /** @description 401 */
@@ -1488,6 +3558,8 @@ export interface operations {
                 content: {
                     "application/json": {
                         message: string;
+                    } & {
+                        [key: string]: unknown;
                     };
                 };
             };

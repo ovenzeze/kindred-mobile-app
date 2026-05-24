@@ -1,4 +1,4 @@
-import { paths } from './openapi-types';
+import type { paths } from './openapi-types';
 
 export type Profile = paths['/me']['get']['responses']['200']['content']['application/json'];
 export type DiscoveryUser = paths['/discovery']['get']['responses']['200']['content']['application/json']['users'][number];
