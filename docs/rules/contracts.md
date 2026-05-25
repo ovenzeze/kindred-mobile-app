@@ -30,6 +30,6 @@
 
 若 `appContract` 注册了 `generated-api.ts` 中尚不存在的 router，ts-rest 客户端会在运行时抛 `Endpoint X not found`。临时修复：在 `app/shared-contracts/index.ts` 注释对应导出；长期修复：部署后端并执行 `npm run update-api` 后再注册。
 
-**当前（2026-05-23）：** `kapi.deth.dev`（本地 3102）OpenAPI 已含 **34** 条 path，含 `albums` / `profileFields`。执行 `npm run update-api` 后可在 `index.ts` 注册对应 router。验证：`curl -s https://kapi.deth.dev/api/openapi.json | jq '.paths | keys | length'`（期望 34）。
+**当前（2026-05-25）：** `kapi.deth.dev`（本地 3102）OpenAPI 已含 **34** 条 path，含 `albums` / `profileFields`。执行 `npm run update-api` 后可在 `index.ts` 注册对应 router。验证：`curl -s https://kapi.deth.dev/api/openapi.json | jq '.paths | keys | length'`（期望 34）。
 
 来源：`openmemory.md`、`docs/rules/agent-browser-qa.md`

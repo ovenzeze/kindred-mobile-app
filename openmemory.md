@@ -83,9 +83,9 @@
 
 ---
 
-### kapi OpenAPI 与手写 albums/profileFields（2026-05-23 同步完成）
+### kapi OpenAPI 与手写 albums/profileFields（2026-05-25 复核）
 
-**现状：** `https://kapi.deth.dev/api/openapi.json` 现为 **34** 条 path，含 albums/profileFields。已执行 `npm run update-api`，`generated-api.ts` / `openapi-types.ts` 已更新；`index.ts` 已注册 `albums` / `profileFields` router。
+**现状：** `https://kapi.deth.dev/api/openapi.json` 仍为 **34** 条 path，含 albums/profileFields。`index.ts` 已注册 `albums` / `profileFields` router；`npm run sitemap` 已刷新 `public/sitemap.xml`（`lastmod` 2026-05-25）。
 
 **验证：** `curl -s https://kapi.deth.dev/api/openapi.json | jq '.paths | keys | length'`（期望 34）。
 
