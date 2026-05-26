@@ -1,6 +1,6 @@
 # CLAUDE.md — Kindred Mobile Web App
 
-> **Maintained:** 2026-05-25
+> **Maintained:** 2026-05-26
 > **Project:** kindred-mobile-app — Nuxt 4 + Vue 3 + ts-rest 移动端 Web
 
 ---

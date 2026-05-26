@@ -91,6 +91,14 @@
 
 ---
 
+## 2026-05-26 文档维护复核
+
+- **规则与路径：** `CLAUDE.md`、`docs/rules/*.md` 引用路径均存在；`CLAUDE.md` 52 行，仍为纯导航。
+- **OpenAPI：** kapi 仍为 34 paths；契约注册状态与 2026-05-25 一致。
+- **Sitemap：** `npm run sitemap` 已刷新 `public/sitemap.xml`（7 URLs，`lastmod` 2026-05-26）。
+
+---
+
 ## 待决事项
 
 - 相册 UI 与 R2 预签名直传流程 — 未实现（契约已就绪）
