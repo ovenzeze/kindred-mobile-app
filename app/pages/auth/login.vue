@@ -9,6 +9,7 @@
         type="email"
         placeholder="you@example.com"
         autocomplete="email"
+        class="rounded-[1.25rem] bg-white/10 dark:bg-white/5 border-none ring-1 ring-white/10 h-12"
         :aria-invalid="!!fieldErrors.email"
         :disabled="loading"
       />
@@ -23,6 +24,7 @@
         type="password"
         placeholder="Enter your password"
         autocomplete="current-password"
+        class="rounded-[1.25rem] bg-white/10 dark:bg-white/5 border-none ring-1 ring-white/10 h-12"
         :aria-invalid="!!fieldErrors.password"
         :disabled="loading"
       />
@@ -30,7 +32,7 @@
       </Field>
     </FieldGroup>
 
-    <Alert v-if="authStore.error" variant="destructive">
+    <Alert v-if="authStore.error" variant="destructive" class="rounded-2xl">
       <CircleAlertIcon />
       <AlertTitle>{{ authStore.error }}</AlertTitle>
     </Alert>
@@ -38,40 +40,41 @@
     <Button
       type="submit"
       size="lg"
-      class="w-full"
+      class="w-full rounded-full font-bold shadow-lg shadow-primary/10"
       :disabled="loading"
     >
       <Spinner v-if="loading" data-icon="inline-start" />
       Sign In
     </Button>
 
-    <div class="flex items-center gap-3">
-      <Separator class="flex-1" />
-      <span class="text-xs uppercase text-muted-foreground">Or continue with</span>
-      <Separator class="flex-1" />
+    <div class="flex items-center gap-4 py-2">
+      <Separator class="flex-1 opacity-50" />
+      <span class="text-[0.65rem] font-bold uppercase tracking-widest text-muted-foreground/60">Or continue with</span>
+      <Separator class="flex-1 opacity-50" />
     </div>
 
     <Button
       type="button"
       variant="outline"
-      class="w-full"
+      class="w-full rounded-full border-white/20 bg-white/5 font-bold shadow-sm"
       :disabled="loading"
       @click="authStore.loginWithGoogle()"
     >
-      <ChromeIcon data-icon="inline-start" />
+      <ChromeIcon data-icon="inline-start" class="size-4" />
       Google
     </Button>
   </form>
 
-  <div class="mt-6 text-center">
+  <div class="mt-8 text-center">
     <p class="text-sm text-muted-foreground">
       Don't have an account?
-      <NuxtLink to="/auth/register" class="font-medium text-primary hover:text-primary/80">
+      <NuxtLink to="/auth/register" class="font-bold text-primary hover:text-primary/80 transition-colors">
         Sign up
       </NuxtLink>
     </p>
   </div>
 </template>
+
 
 <script setup lang="ts">
 import { ChromeIcon, CircleAlertIcon } from 'lucide-vue-next';

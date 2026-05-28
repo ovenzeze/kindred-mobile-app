@@ -2,16 +2,19 @@
   <div class="flex flex-col h-full">
     <AppHeader>
       <template #left>
-        <h1 class="text-xl font-bold text-foreground">Messages</h1>
+        <div class="flex flex-col">
+          <p class="kindred-section-kicker">Private notes</p>
+          <h1 class="kindred-section-title -mt-0.5">Messages</h1>
+        </div>
       </template>
     </AppHeader>
 
-    <div class="flex-1 overflow-y-auto">
-      <div v-if="loading" class="flex flex-col gap-3 p-4">
-        <Skeleton v-for="i in 4" :key="i" class="h-20 w-full" />
+    <div class="kindred-page flex-1 overflow-y-auto">
+      <div v-if="loading" class="flex flex-col gap-4">
+        <Skeleton v-for="i in 5" :key="i" class="h-24 w-full rounded-[1.5rem]" />
       </div>
 
-      <div v-else-if="chats.length > 0">
+      <div v-else-if="chats.length > 0" class="flex flex-col gap-3.5">
         <MatchCell
           v-for="chat in chats"
           :key="chat.id"
@@ -19,18 +22,24 @@
         />
       </div>
 
-      <div v-else class="flex flex-col items-center justify-center h-64 text-muted-foreground">
-        <MessageCircleIcon class="size-12 opacity-20" />
-        <p class="mt-2">{{ error || 'No messages yet.' }}</p>
+      <EmptyState
+        v-else
+        :icon="MessageCircleIcon"
+        title="No active chats"
+        description="Go to your matches to start a conversation with your connections."
+        action-label="View Matches"
+        @action="router.push('/matches')"
+      />
       </div>
-    </div>
-  </div>
-</template>
+      </div>
+      </template>
 
-<script setup lang="ts">
-import { MessageCircleIcon } from 'lucide-vue-next';
-import { Skeleton } from '~/components/ui/skeleton';
-import { formatRelativeTime } from '~/utils/format';
+      <script setup lang="ts">
+      import { MessageCircleIcon } from 'lucide-vue-next';
+      import { Skeleton } from '~/components/ui/skeleton';
+      import EmptyState from '~/components/EmptyState.vue';
+      import { formatRelativeTime } from '~/utils/format';
+
 
 definePageMeta({
   layout: 'default',

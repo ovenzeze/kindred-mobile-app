@@ -9,6 +9,7 @@
         type="text"
         placeholder="Your name"
         autocomplete="name"
+        class="rounded-[1.25rem] bg-white/10 dark:bg-white/5 border-none ring-1 ring-white/10 h-12"
         :aria-invalid="!!fieldErrors.displayName"
         :disabled="loading"
       />
@@ -23,6 +24,7 @@
         type="email"
         placeholder="you@example.com"
         autocomplete="email"
+        class="rounded-[1.25rem] bg-white/10 dark:bg-white/5 border-none ring-1 ring-white/10 h-12"
         :aria-invalid="!!fieldErrors.email"
         :disabled="loading"
       />
@@ -37,6 +39,7 @@
         type="password"
         placeholder="At least 8 characters"
         autocomplete="new-password"
+        class="rounded-[1.25rem] bg-white/10 dark:bg-white/5 border-none ring-1 ring-white/10 h-12"
         :aria-invalid="!!fieldErrors.password"
         :disabled="loading"
       />
@@ -51,6 +54,7 @@
         type="password"
         placeholder="Confirm your password"
         autocomplete="new-password"
+        class="rounded-[1.25rem] bg-white/10 dark:bg-white/5 border-none ring-1 ring-white/10 h-12"
         :aria-invalid="!!fieldErrors.confirmPassword"
         :disabled="loading"
       />
@@ -58,7 +62,7 @@
       </Field>
     </FieldGroup>
 
-    <Alert v-if="authStore.error" variant="destructive">
+    <Alert v-if="authStore.error" variant="destructive" class="rounded-2xl">
       <CircleAlertIcon />
       <AlertTitle>{{ authStore.error }}</AlertTitle>
     </Alert>
@@ -66,7 +70,7 @@
     <Button
       type="submit"
       size="lg"
-      class="w-full"
+      class="w-full rounded-full font-bold shadow-lg shadow-primary/10"
       :disabled="loading"
     >
       <Spinner v-if="loading" data-icon="inline-start" />
@@ -74,15 +78,16 @@
     </Button>
   </form>
 
-  <div class="mt-6 text-center">
+  <div class="mt-8 text-center">
     <p class="text-sm text-muted-foreground">
       Already have an account?
-      <NuxtLink to="/auth/login" class="font-medium text-primary hover:text-primary/80">
+      <NuxtLink to="/auth/login" class="font-bold text-primary hover:text-primary/80 transition-colors">
         Sign in
       </NuxtLink>
     </p>
   </div>
 </template>
+
 
 <script setup lang="ts">
 import { CircleAlertIcon } from 'lucide-vue-next';

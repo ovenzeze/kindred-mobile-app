@@ -2,16 +2,19 @@
   <div class="flex flex-col h-full">
     <AppHeader>
       <template #left>
-        <h1 class="text-xl font-bold text-foreground">Matches</h1>
+        <div class="flex flex-col">
+          <p class="kindred-section-kicker">Resonance</p>
+          <h1 class="kindred-section-title -mt-0.5">Matches</h1>
+        </div>
       </template>
     </AppHeader>
 
-    <div class="flex-1 overflow-y-auto">
-      <div v-if="loading" class="flex flex-col gap-3 p-4">
-        <Skeleton v-for="i in 4" :key="i" class="h-20 w-full" />
+    <div class="kindred-page flex-1 overflow-y-auto">
+      <div v-if="loading" class="flex flex-col gap-4">
+        <Skeleton v-for="i in 5" :key="i" class="h-24 w-full rounded-[1.5rem]" />
       </div>
 
-      <div v-else-if="matches.length > 0">
+      <div v-else-if="matches.length > 0" class="flex flex-col gap-3.5">
         <MatchCell
           v-for="match in matches"
           :key="match.id"
@@ -19,18 +22,24 @@
         />
       </div>
 
-      <div v-else class="flex flex-col items-center justify-center h-64 text-muted-foreground">
-        <HeartIcon class="size-12 opacity-20" />
-        <p class="mt-2">{{ error || 'No matches yet. Keep exploring!' }}</p>
+      <EmptyState
+        v-else
+        :icon="HeartIcon"
+        title="Find your spark"
+        description="Matches will appear here once you both like each other. Keep exploring to find someone special."
+        action-label="Start Exploring"
+        @action="router.push('/')"
+      />
       </div>
-    </div>
-  </div>
-</template>
+      </div>
+      </template>
 
-<script setup lang="ts">
-import { HeartIcon } from 'lucide-vue-next';
-import { Skeleton } from '~/components/ui/skeleton';
-import { formatRelativeTime } from '~/utils/format';
+      <script setup lang="ts">
+      import { HeartIcon } from 'lucide-vue-next';
+      import { Skeleton } from '~/components/ui/skeleton';
+      import EmptyState from '~/components/EmptyState.vue';
+      import { formatRelativeTime } from '~/utils/format';
+
 
 definePageMeta({
   layout: 'default',

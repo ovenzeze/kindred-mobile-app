@@ -23,6 +23,6 @@ const modelValue = useVModel(props, 'modelValue', emits, {
   <textarea
     v-model="modelValue"
     data-slot="textarea"
-    :class="cn('border-white/55 bg-card/35 shadow-inner shadow-white/25 backdrop-blur-xl focus-visible:border-primary/45 focus-visible:ring-primary/25 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive/60 dark:aria-invalid:border-destructive/50 disabled:bg-card/25 dark:bg-input/30 dark:border-white/10 dark:disabled:bg-input/50 rounded-lg border px-3 py-2 text-base transition-colors focus-visible:ring-3 aria-invalid:ring-3 md:text-sm flex field-sizing-content min-h-16 w-full outline-none placeholder:text-muted-foreground/75 disabled:cursor-not-allowed disabled:opacity-50', props.class)"
+    :class="cn('border-white/60 bg-card/45 shadow-inner shadow-white/25 backdrop-blur-xl focus-visible:border-primary/45 focus-visible:ring-primary/25 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive/60 dark:aria-invalid:border-destructive/50 disabled:bg-card/25 dark:bg-input/30 dark:border-white/10 dark:disabled:bg-input/50 rounded-xl border px-3.5 py-2.5 text-base transition-colors focus-visible:ring-3 aria-invalid:ring-3 md:text-sm flex field-sizing-content min-h-24 w-full outline-none placeholder:text-muted-foreground/75 disabled:cursor-not-allowed disabled:opacity-50', props.class)"
   />
 </template>

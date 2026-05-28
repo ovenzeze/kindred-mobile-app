@@ -46,6 +46,6 @@
 ## 周边生态
 
 - 图片走 `@nuxt/image` / `NuxtImg`。
-- 字体在 `app/assets/css/main.css` 顶部通过 Google Fonts `@import` 加载（Sora 正文、Fraunces 标题）；`@theme inline` 中 `--font-sans` / `--font-heading` 引用上述族名。`@nuxt/fonts` 模块已注册但当前不单独配置 font family。
+- 字体在 `app/assets/css/main.css` 顶部通过 Google Fonts `@import` 加载 Geist；`@theme inline` 中 `--font-sans` 引用该族名。标题、正文、控件统一使用 Geist，避免页面局部混用字体。`@nuxt/fonts` 模块已注册但当前不单独配置 font family。
 - PWA 由 `@vite-pwa/nuxt` 配置在 `nuxt.config.ts`。
 - 状态管理走 `@pinia/nuxt`，不要绕过现有 stores。

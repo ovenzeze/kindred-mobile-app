@@ -1,6 +1,6 @@
 <template>
-  <div class="relative mx-auto flex min-h-screen max-w-md flex-col overflow-hidden shadow-2xl shadow-rose-950/10">
-    <main class="flex-1 overflow-y-auto pb-20">
+  <div class="fixed inset-0 mx-auto flex max-w-md flex-col overflow-hidden bg-background">
+    <main class="relative flex-1 overflow-hidden">
       <slot />
     </main>
 
@@ -10,6 +10,12 @@
 
 <style>
 body {
-  overscroll-behavior-y: contain;
+  /* Prevent system-level scrolling to keep the fixed shell stable */
+  overflow: hidden;
+  overscroll-behavior: none;
+  background-color: var(--background);
 }
 </style>
+
+
+

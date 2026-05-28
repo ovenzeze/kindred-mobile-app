@@ -24,7 +24,7 @@ const modelValue = useVModel(props, 'modelValue', emits, {
     v-model="modelValue"
     data-slot="input"
     :class="cn(
-      'border-white/55 bg-card/35 shadow-inner shadow-white/25 backdrop-blur-xl focus-visible:border-primary/45 focus-visible:ring-primary/25 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive/60 dark:aria-invalid:border-destructive/50 disabled:bg-card/25 dark:bg-input/30 dark:border-white/10 dark:disabled:bg-input/50 h-9 rounded-lg border px-3 py-1.5 text-base transition-colors file:h-6 file:text-sm file:font-medium focus-visible:ring-3 aria-invalid:ring-3 md:text-sm w-full min-w-0 outline-none file:inline-flex file:border-0 file:bg-transparent file:text-foreground placeholder:text-muted-foreground/75 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50',
+      'border-white/60 bg-card/45 shadow-inner shadow-white/25 backdrop-blur-xl focus-visible:border-primary/45 focus-visible:ring-primary/25 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive/60 dark:aria-invalid:border-destructive/50 disabled:bg-card/25 dark:bg-input/30 dark:border-white/10 dark:disabled:bg-input/50 h-11 rounded-xl border px-3.5 py-2 text-base transition-colors file:h-6 file:text-sm file:font-medium focus-visible:ring-3 aria-invalid:ring-3 md:text-sm w-full min-w-0 outline-none file:inline-flex file:border-0 file:bg-transparent file:text-foreground placeholder:text-muted-foreground/75 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50',
       props.class,
     )"
   >
