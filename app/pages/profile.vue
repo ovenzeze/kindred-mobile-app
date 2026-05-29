@@ -272,9 +272,10 @@ async function handlePhotoUpload(file: File) {
     });
 
     if (res.status === 200) {
-      const { uploadUrl, objectKey } = res.body;
+      const { uploadUrl, objectKey, publicUrl } = res.body;
       await fetch(uploadUrl, { method: 'PUT', body: file, headers: { 'Content-Type': file.type } });
-      await client.albums.confirmUpload({ params: { id: albumId }, body: { objectKey, url: uploadUrl } });
+      const photoUrl = publicUrl || uploadUrl;
+      await client.albums.confirmUpload({ params: { id: albumId }, body: { objectKey, url: photoUrl } });
       await loadPhotos();
     }
   } finally {
