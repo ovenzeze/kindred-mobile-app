@@ -254,7 +254,7 @@ async function loadPhotos() {
     }
   } else if (res.status === 200) {
     // Create default album if none
-    await client.albums.createAlbum({ body: { name: 'Primary', isPublic: true } });
+    await client.albums.createAlbum({ body: { title: 'Primary', visibility: 'public' } });
     loadPhotos();
   }
 }
