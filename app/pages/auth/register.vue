@@ -75,15 +75,15 @@
       :disabled="loading"
     >
       <Spinner v-if="loading" data-icon="inline-start" />
-      Create Account
+      Join Kindred
     </Button>
   </form>
 
   <div class="mt-8 text-center">
     <p class="text-sm text-muted-foreground">
-      Already have an account?
+      Already a member?
       <NuxtLink to="/auth/login" class="font-bold text-primary hover:text-primary/80 transition-colors">
-        Sign in
+        Welcome back
       </NuxtLink>
     </p>
   </div>
@@ -101,7 +101,7 @@ import { Spinner } from '~/components/ui/spinner';
 definePageMeta({
   layout: 'auth',
   middleware: 'guest',
-  authSubtitle: 'Create your account',
+  authSubtitle: 'Begin your journey',
 });
 
 const authStore = useAuthStore();

@@ -73,10 +73,10 @@ export default defineNuxtConfig({
       title: 'Kindred',
       viewport: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0',
       meta: [
-        { name: 'theme-color', content: '#fff7ed' },
+        { name: 'theme-color', content: '#faf5f2' },
         { name: 'apple-mobile-web-app-capable', content: 'yes' },
         { name: 'apple-mobile-web-app-title', content: 'Kindred' },
-        { name: 'apple-mobile-web-app-status-bar-style', content: 'default' }
+        { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' }
       ],
       link: [
         { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
@@ -95,7 +95,7 @@ export default defineNuxtConfig({
     manifest: {
       name: 'Kindred',
       short_name: 'Kindred',
-      theme_color: '#fff7ed',
+      theme_color: '#faf5f2',
       icons: [
         {
           src: 'pwa-192x192.png',

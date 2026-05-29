@@ -49,7 +49,7 @@
 
     <div class="flex items-center gap-4 py-2">
       <Separator class="flex-1 opacity-50" />
-      <span class="text-[0.65rem] font-bold uppercase tracking-widest text-muted-foreground/60">Or continue with</span>
+      <span class="text-[0.65rem] font-bold uppercase tracking-widest text-muted-foreground/60">Or</span>
       <Separator class="flex-1 opacity-50" />
     </div>
 
@@ -67,9 +67,9 @@
 
   <div class="mt-8 text-center">
     <p class="text-sm text-muted-foreground">
-      Don't have an account?
+      New to Kindred?
       <NuxtLink to="/auth/register" class="font-bold text-primary hover:text-primary/80 transition-colors">
-        Sign up
+        Create an account
       </NuxtLink>
     </p>
   </div>
@@ -88,7 +88,7 @@ import { Spinner } from '~/components/ui/spinner';
 definePageMeta({
   layout: 'auth',
   middleware: 'guest',
-  authSubtitle: 'Sign in to your account',
+  authSubtitle: 'Welcome back',
 });
 
 const authStore = useAuthStore();

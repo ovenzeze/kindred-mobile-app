@@ -272,9 +272,9 @@ async function handlePhotoUpload(file: File) {
     });
 
     if (res.status === 200) {
-      const { uploadUrl, photoId } = res.body;
+      const { uploadUrl, objectKey } = res.body;
       await fetch(uploadUrl, { method: 'PUT', body: file, headers: { 'Content-Type': file.type } });
-      await client.albums.confirmUpload({ params: { albumId, photoId } });
+      await client.albums.confirmUpload({ params: { id: albumId }, body: { objectKey, url: uploadUrl } });
       await loadPhotos();
     }
   } finally {
@@ -285,7 +285,7 @@ async function handlePhotoUpload(file: File) {
 async function handlePhotoDelete(photoId: string) {
   const albums = await client.albums.listAlbums({});
   if (albums.status !== 200 || albums.body.albums.length === 0) return;
-  await client.albums.deletePhoto({ params: { albumId: albums.body.albums[0].id, photoId } });
+  await client.albums.deletePhoto({ params: { id: albums.body.albums[0].id, photoId } });
   await loadPhotos();
 }
 
