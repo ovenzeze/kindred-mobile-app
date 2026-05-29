@@ -47,6 +47,7 @@
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.0",
+    "jimp": "^0.16.1",
     "openapi-typescript": "^7.13.0",
     "openapi-zod-client": "^1.18.3",
     "playwright": "^1.60.0",

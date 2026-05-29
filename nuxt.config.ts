@@ -70,9 +70,17 @@ export default defineNuxtConfig({
   // Mobile-first viewport optimization
   app: {
     head: {
+      title: 'Kindred',
       viewport: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0',
       meta: [
-        { name: 'theme-color', content: '#fff7ed' }
+        { name: 'theme-color', content: '#fff7ed' },
+        { name: 'apple-mobile-web-app-capable', content: 'yes' },
+        { name: 'apple-mobile-web-app-title', content: 'Kindred' },
+        { name: 'apple-mobile-web-app-status-bar-style', content: 'default' }
+      ],
+      link: [
+        { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+        { rel: 'manifest', href: '/manifest.webmanifest' }
       ]
     }
   },
@@ -80,6 +88,10 @@ export default defineNuxtConfig({
   // PWA configuration
   pwa: {
     registerType: 'autoUpdate',
+    devOptions: {
+      enabled: true,
+      type: 'module',
+    },
     manifest: {
       name: 'Kindred',
       short_name: 'Kindred',

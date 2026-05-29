@@ -1,4 +1,5 @@
 <template>
+  <VitePwaManifest />
   <NuxtLayout>
     <NuxtPage :transition="{ name: 'kindred-route' }" />
   </NuxtLayout>
