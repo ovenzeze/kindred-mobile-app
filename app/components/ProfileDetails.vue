@@ -1,5 +1,19 @@
 <template>
   <div class="flex flex-col gap-8 pb-10">
+    <!-- Photo Carousel -->
+    <section v-if="photos && photos.length > 0" class="-mx-6">
+      <div class="flex gap-3 overflow-x-auto px-6 pb-2 no-scrollbar snap-x snap-mandatory">
+        <div 
+          v-for="url in photos" 
+          :key="url"
+          class="relative aspect-[3/4] h-72 shrink-0 overflow-hidden rounded-[2.5rem] ring-1 ring-white/10 shadow-xl snap-center"
+        >
+          <NuxtImg :src="url" class="h-full w-full object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+        </div>
+      </div>
+    </section>
+
     <!-- About Section -->
     <section v-if="about.weekendPlan || (about.interests && about.interests.length)" class="space-y-4">
       <div class="flex items-center gap-2 px-1">
@@ -132,6 +146,7 @@ interface FieldValue {
 
 interface Props {
   fields: FieldValue[];
+  photos?: string[];
 }
 
 const props = defineProps<Props>();

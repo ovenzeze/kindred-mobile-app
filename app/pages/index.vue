@@ -23,35 +23,38 @@
         />
 
         <div class="mt-8 flex items-center justify-center gap-6">
+          <div @click="swipe('pass')" class="cursor-pointer" role="button" tabindex="0">
           <Button
             size="icon-lg"
             variant="outline"
-            class="size-16 rounded-full border-white/10 bg-white/5 text-destructive shadow-xl shadow-black/5 backdrop-blur-3xl ring-1 ring-white/10 active:scale-90"
+            class="size-16 rounded-full border-white/10 bg-white/5 text-destructive shadow-xl shadow-black/5 backdrop-blur-3xl ring-1 ring-white/10 active:scale-90 pointer-events-none"
             aria-label="Pass"
             :disabled="actionLoading"
-            @click="swipe('pass')"
           >
             <XIcon class="size-7" />
           </Button>
+          </div>
+          <div @click="swipe('super_like')" class="cursor-pointer mt-3" role="button" tabindex="0">
           <Button
             size="icon-lg"
             variant="outline"
-            class="mt-3 size-14 rounded-full border-white/10 bg-white/10 text-warning shadow-lg shadow-black/5 backdrop-blur-3xl ring-1 ring-white/10 active:scale-90"
+            class="mt-3 size-14 rounded-full border-white/10 bg-white/10 text-warning shadow-lg shadow-black/5 backdrop-blur-3xl ring-1 ring-white/10 active:scale-90 pointer-events-none"
             aria-label="Super like"
             :disabled="actionLoading"
-            @click="swipe('super_like')"
           >
             <StarIcon class="size-6 fill-current" />
           </Button>
+          </div>
+          <div @click="swipe('like')" class="cursor-pointer" role="button" tabindex="0">
           <Button
             size="icon-lg"
-            class="size-16 rounded-full border-primary/20 bg-primary/15 text-primary shadow-xl shadow-primary/10 backdrop-blur-3xl ring-1 ring-primary/20 active:scale-90"
+            class="size-16 rounded-full border-primary/20 bg-primary/15 text-primary shadow-xl shadow-primary/10 backdrop-blur-3xl ring-1 ring-primary/20 active:scale-90 pointer-events-none"
             aria-label="Like"
             :disabled="actionLoading"
-            @click="swipe('like')"
           >
             <HeartIcon class="size-7 fill-current" />
           </Button>
+          </div>
         </div>
 
         <!-- Profile Details Drawer -->

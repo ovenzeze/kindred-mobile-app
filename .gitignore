@@ -25,3 +25,4 @@ dogfood-output/
 .env
 .env.*
 !.env.example
+.vercel

@@ -3,7 +3,7 @@
     <AppHeader>
       <template #left>
         <div class="flex flex-col">
-          <p class="kindred-section-kicker">Resonance</p>
+          <p class="kindred-section-kicker">Kindred</p>
           <h1 class="kindred-section-title -mt-0.5">Matches</h1>
         </div>
       </template>

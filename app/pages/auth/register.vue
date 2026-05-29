@@ -69,6 +69,7 @@
 
     <Button
       type="submit"
+      @click.prevent="handleSubmit"
       size="lg"
       class="w-full rounded-full font-bold shadow-lg shadow-primary/10"
       :disabled="loading"

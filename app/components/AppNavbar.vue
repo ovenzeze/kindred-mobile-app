@@ -32,7 +32,6 @@ import {
   CompassIcon,
   HeartIcon,
   MessageCircleIcon,
-  PaletteIcon,
   UserIcon,
 } from 'lucide-vue-next';
 
@@ -44,12 +43,8 @@ const coreNavItems = [
 ];
 
 const navItems = computed(() => {
-  if (!import.meta.dev) return coreNavItems;
-
-  return [
-    ...coreNavItems,
-    { to: '/ui-kit', label: 'UI Kit', icon: PaletteIcon },
-  ];
+  // UI Kit page removed from nav in all environments per UI audit (ISSUE-003)
+  return coreNavItems;
 });
 </script>
 

@@ -3,7 +3,7 @@
     <AppHeader>
       <template #left>
         <div class="flex flex-col">
-          <p class="kindred-section-kicker opacity-60">Identity</p>
+          <p class="kindred-section-kicker opacity-60">Kindred</p>
           <h1 class="kindred-section-title -mt-1 font-black tracking-tighter">Profile</h1>
         </div>
       </template>
@@ -89,7 +89,7 @@
             <h3 class="text-[0.65rem] font-black uppercase tracking-[0.2em] text-muted-foreground/40">Profile Preview</h3>
             <Badge variant="outline" class="border-primary/10 bg-primary/5 text-primary/60 font-black text-[0.6rem] uppercase tracking-wider">Verified</Badge>
           </div>
-          <ProfileDetails :fields="profile.fields || []" />
+          <ProfileDetails :fields="profile.fields || []" :photos="profile.photos || []" />
         </div>
       </template>
 
@@ -102,36 +102,72 @@
 
       <Sheet v-model:open="openEdit">
       <SheetContent side="right" class="w-full max-w-md border-none p-0">
-        <div class="flex h-full flex-col bg-background/95 backdrop-blur-xl">
-          <SheetHeader class="p-6 border-b border-white/10">
-            <SheetTitle class="text-xl font-bold">Edit Profile</SheetTitle>
+        <div class="flex h-full flex-col bg-background/95 backdrop-blur-3xl">
+          <SheetHeader class="p-6 border-b border-white/5 sticky top-0 z-10 bg-background/50 backdrop-blur-md">
+            <SheetTitle class="text-2xl font-black tracking-tighter">Edit Profile</SheetTitle>
           </SheetHeader>
-          <div class="flex-1 overflow-y-auto p-6 flex flex-col gap-6">
-            <FieldGroup>
-              <Field :data-invalid="!!saveError">
-                <FieldLabel for="edit-display-name">Display Name</FieldLabel>
-                <Input
-                  id="edit-display-name"
-                  v-model="editForm.displayName"
-                  class="rounded-2xl"
-                  :aria-invalid="!!saveError"
-                />
-              </Field>
-              <Field>
-                <FieldLabel for="edit-bio">Bio</FieldLabel>
-                <Textarea id="edit-bio" v-model="editForm.bio" :rows="4" class="rounded-2xl" />
-              </Field>
-            </FieldGroup>
-            <Alert v-if="saveError" variant="destructive" class="rounded-2xl">
-              <CircleAlertIcon />
-              <AlertTitle>{{ saveError }}</AlertTitle>
-            </Alert>
+          
+          <div class="flex-1 overflow-y-auto p-6 space-y-10 pb-32">
+            <!-- Photos Section -->
+            <section class="space-y-4">
+              <div class="flex items-center justify-between px-1">
+                <h3 class="text-[0.65rem] font-black uppercase tracking-[0.2em] text-muted-foreground/50">My Photos</h3>
+                <span class="text-[0.6rem] font-bold text-primary/60">{{ photos.length }}/6</span>
+              </div>
+              <PhotoGrid 
+                :photos="photos" 
+                :uploading="uploadingPhoto"
+                @upload="handlePhotoUpload"
+                @delete="handlePhotoDelete"
+              />
+            </section>
+
+            <!-- Basic Info -->
+            <section class="space-y-6">
+              <div class="flex items-center px-1">
+                <h3 class="text-[0.65rem] font-black uppercase tracking-[0.2em] text-muted-foreground/50">Core Identity</h3>
+              </div>
+              <FieldGroup>
+                <Field :data-invalid="!!saveError">
+                  <FieldLabel for="edit-display-name">Display Name</FieldLabel>
+                  <Input
+                    id="edit-display-name"
+                    v-model="editForm.displayName"
+                    class="h-12 rounded-[1.25rem] bg-white/10 border-none ring-1 ring-white/10 focus-visible:ring-primary/30"
+                    :aria-invalid="!!saveError"
+                  />
+                </Field>
+                <Field>
+                  <FieldLabel for="edit-bio">Bio</FieldLabel>
+                  <Textarea 
+                    id="edit-bio" 
+                    v-model="editForm.bio" 
+                    :rows="4" 
+                    placeholder="Tell your story..."
+                    class="rounded-[1.5rem] bg-white/10 border-none ring-1 ring-white/10 focus-visible:ring-primary/30" 
+                  />
+                </Field>
+              </FieldGroup>
+            </section>
+
+            <!-- Dynamic Field Groups -->
+            <section v-for="(fields, group) in PROFILE_FIELD_GROUPS" :key="group" class="space-y-6">
+              <div class="flex items-center px-1">
+                <h3 class="text-[0.65rem] font-black uppercase tracking-[0.2em] text-muted-foreground/50 capitalize">{{ group }}</h3>
+              </div>
+              <FieldGroupEditor 
+                :fields="Array.from(fields)" 
+                v-model="fieldValues[group]" 
+              />
+            </section>
           </div>
-          <div class="p-6 border-t border-white/10 bg-background/40 flex gap-3">
-            <Button variant="ghost" class="flex-1 rounded-full font-bold" @click="openEdit = false">Cancel</Button>
-            <Button class="flex-1 rounded-full font-bold shadow-lg shadow-primary/20" :disabled="saving" @click="saveProfile">
+
+          <!-- Sticky Footer -->
+          <div class="absolute bottom-0 left-0 right-0 p-6 border-t border-white/5 bg-background/80 backdrop-blur-xl flex gap-3">
+            <Button variant="ghost" class="flex-1 rounded-full font-bold h-12" @click="openEdit = false">Cancel</Button>
+            <Button class="flex-1 rounded-full font-black h-12 shadow-xl shadow-primary/20 bg-gradient-to-br from-primary to-primary/80" :disabled="saving" @click="saveProfile">
               <Spinner v-if="saving" data-icon="inline-start" />
-              Save Changes
+              Save Everything
             </Button>
           </div>
         </div>
@@ -155,6 +191,9 @@ import { Skeleton } from '~/components/ui/skeleton';
 import { Spinner } from '~/components/ui/spinner';
 import { Textarea } from '~/components/ui/textarea';
 import ProfileDetails from '~/components/ProfileDetails.vue';
+import PhotoGrid from '~/components/PhotoGrid.vue';
+import FieldGroupEditor from '~/components/FieldGroupEditor.vue';
+import { PROFILE_FIELD_GROUPS } from '~/utils/profile-fields';
 import { calcAge } from '~/utils/format';
 
 definePageMeta({
@@ -201,32 +240,106 @@ const profileInitials = computed(() => {
     .toUpperCase();
 });
 
+// Photo Management
+const photos = ref<any[]>([]);
+const uploadingPhoto = ref(false);
+
+async function loadPhotos() {
+  const res = await client.albums.listAlbums({});
+  if (res.status === 200 && res.body.albums.length > 0) {
+    const albumId = res.body.albums[0].id;
+    const photoRes = await client.albums.listPhotos({ params: { id: albumId } });
+    if (photoRes.status === 200) {
+      photos.value = photoRes.body.photos;
+    }
+  } else if (res.status === 200) {
+    // Create default album if none
+    await client.albums.createAlbum({ body: { name: 'Primary', isPublic: true } });
+    loadPhotos();
+  }
+}
+
+async function handlePhotoUpload(file: File) {
+  uploadingPhoto.value = true;
+  try {
+    const albums = await client.albums.listAlbums({});
+    if (albums.status !== 200 || albums.body.albums.length === 0) return;
+    const albumId = albums.body.albums[0].id;
+
+    const res = await client.albums.getUploadUrl({ 
+      params: { id: albumId },
+      body: { contentType: file.type }
+    });
+
+    if (res.status === 200) {
+      const { uploadUrl, photoId } = res.body;
+      await fetch(uploadUrl, { method: 'PUT', body: file, headers: { 'Content-Type': file.type } });
+      await client.albums.confirmUpload({ params: { albumId, photoId } });
+      await loadPhotos();
+    }
+  } finally {
+    uploadingPhoto.value = false;
+  }
+}
+
+async function handlePhotoDelete(photoId: string) {
+  const albums = await client.albums.listAlbums({});
+  if (albums.status !== 200 || albums.body.albums.length === 0) return;
+  await client.albums.deletePhoto({ params: { albumId: albums.body.albums[0].id, photoId } });
+  await loadPhotos();
+}
+
+// Field Management
+const fieldValues = reactive<Record<string, any>>({
+  basics: {},
+  work: {},
+  education: {},
+  about: {},
+  appearance: {}
+});
+
 async function loadProfile() {
   loading.value = true;
   error.value = null;
   needsSetup.value = false;
   try {
-    const result = await authStore.ensureProfile();
-    if (result.success && result.profile) {
-      profile.value = result.profile;
-      editForm.displayName = result.profile.displayName ?? '';
-      editForm.bio = result.profile.bio ?? '';
-      if (!result.profile.displayName?.trim()) {
+    const [profileRes, fieldsRes] = await Promise.all([
+      authStore.ensureProfile(),
+      client.profileFields.getMyFields({})
+    ]);
+
+    if (profileRes.success && profileRes.profile) {
+      profile.value = profileRes.profile;
+      editForm.displayName = profileRes.profile.displayName ?? '';
+      editForm.bio = profileRes.profile.bio ?? '';
+      if (!profileRes.profile.displayName?.trim()) {
         needsSetup.value = true;
       }
-      return;
     }
 
-    if (result.error === 'Profile not found') {
-      needsSetup.value = true;
-      return;
+    if (fieldsRes.status === 200) {
+      fieldsRes.body.fields.forEach(f => {
+        fieldValues[f.fieldKey] = f.value ?? {};
+      });
     }
 
-    error.value = result.error ?? 'Could not load profile';
-  } catch {
-    error.value = 'Could not load profile';
+    await loadPhotos();
   } finally {
     loading.value = false;
+  }
+}
+
+async function saveFieldGroup(key: string) {
+  saving.value = true;
+  try {
+    await client.profileFields.upsertField({
+      body: {
+        fieldKey: key,
+        value: fieldValues[key]
+      }
+    });
+  } finally {
+    saving.value = false;
   }
 }
 
@@ -239,12 +352,17 @@ async function saveProfile() {
   saving.value = true;
   saveError.value = null;
   try {
+    // Save main profile
     const response = await client.profile.updateMe({
       body: {
         displayName: editForm.displayName.trim(),
         bio: editForm.bio.trim() || undefined,
       },
     });
+
+    // Save all field groups
+    await Promise.all(Object.keys(fieldValues).map(key => saveFieldGroup(key)));
+
     if (response.status === 200 && response.body) {
       const wasSetup = needsSetup.value;
       profile.value = response.body;
@@ -253,15 +371,7 @@ async function saveProfile() {
       if (wasSetup) {
         await router.push('/');
       }
-    } else {
-      const message =
-        response.body && typeof response.body === 'object' && 'message' in response.body
-          ? String((response.body as { message: string }).message)
-          : 'Could not save profile';
-      saveError.value = message;
     }
-  } catch {
-    saveError.value = 'Could not save profile';
   } finally {
     saving.value = false;
   }

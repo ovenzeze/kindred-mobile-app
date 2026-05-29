@@ -3,7 +3,7 @@
     <AppHeader>
       <template #left>
         <div class="flex flex-col">
-          <p class="kindred-section-kicker">Private notes</p>
+          <p class="kindred-section-kicker">Kindred</p>
           <h1 class="kindred-section-title -mt-0.5">Messages</h1>
         </div>
       </template>
@@ -62,6 +62,13 @@ const chats = ref<ChatRow[]>([]);
 const loading = ref(true);
 const error = ref<string | null>(null);
 
+/** Filter out dev seed content from message previews. */
+function sanitizeLastMessage(body: string | null | undefined): string | null {
+  if (!body) return null;
+  if (body.startsWith('[kindred-dev-seed]')) return null;
+  return body;
+}
+
 async function loadChats() {
   loading.value = true;
   error.value = null;
@@ -98,7 +105,7 @@ async function loadChats() {
         id: c.matchId,
         name: otherUserId ? userStore.displayName(otherUserId) : 'Unknown',
         imageUrl: otherUserId ? userStore.photoUrl(otherUserId) : '',
-        lastMessage: last?.body ?? 'Start the conversation',
+        lastMessage: sanitizeLastMessage(last?.body) || 'Start the conversation',
         lastMessageTime: last?.createdAt ? formatRelativeTime(last.createdAt) : '',
         unreadCount: 0,
       };

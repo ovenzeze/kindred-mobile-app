@@ -63,7 +63,11 @@ export const useAuthStore = defineStore('auth', {
           return { success: true };
         }
 
-        this.error = 'Login failed';
+        const serverMsg =
+          response.body && typeof response.body === 'object' && 'message' in response.body
+            ? String((response.body as { message: string }).message)
+            : null;
+        this.error = serverMsg || 'Invalid email or password';
         return { success: false, error: this.error };
       } catch (e: any) {
         const message = e?.message || 'Login failed';
@@ -114,7 +118,11 @@ export const useAuthStore = defineStore('auth', {
           return { success: true };
         }
 
-        this.error = 'Registration failed';
+        const serverMsg =
+          response.body && typeof response.body === 'object' && 'message' in response.body
+            ? String((response.body as { message: string }).message)
+            : null;
+        this.error = serverMsg || 'Registration failed';
         return { success: false, error: this.error };
       } catch (e: any) {
         const message = e?.message || 'Registration failed';

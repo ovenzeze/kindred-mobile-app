@@ -150,6 +150,8 @@ async function loadChat() {
     }
     
     scrollToBottom();
+  } catch (err) {
+    console.error('Failed to load chat:', err);
   } finally {
     loading.value = false;
   }

@@ -36,7 +36,7 @@
           <h2 class="text-3xl font-bold leading-none tracking-tight">{{ name }}</h2>
           <span v-if="age > 0" class="mb-0.5 text-xl font-semibold opacity-90">{{ age }}</span>
         </div>
-        <p class="mt-3 line-clamp-3 text-[0.95rem] leading-relaxed text-white/90">{{ bio || 'No bio yet.' }}</p>
+        <p class="mt-3 line-clamp-3 text-[0.95rem] leading-relaxed text-white/90">{{ bio || 'A mystery waiting to unfold...' }}</p>
         <div v-if="tags.length" class="mt-5 flex flex-wrap gap-2">
           <Badge v-for="tag in tags" :key="tag" variant="secondary" class="border-white/10 bg-white/10 text-white shadow-none backdrop-blur-xl">
             {{ tag }}
