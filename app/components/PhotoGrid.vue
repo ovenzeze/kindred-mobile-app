@@ -51,6 +51,7 @@
         ref="fileInput"
         type="file" 
         accept="image/*" 
+        multiple
         class="hidden" 
         @change="handleFileChange"
       />
@@ -96,9 +97,10 @@ function triggerUpload() {
 
 function handleFileChange(event: Event) {
   const target = event.target as HTMLInputElement;
-  const file = target.files?.[0];
-  if (file) {
-    emit('upload', file);
+  const files = target.files;
+  if (files && files.length > 0) {
+    // Convert FileList to Array and emit
+    emit('upload', Array.from(files));
     // Reset input
     if (fileInput.value) fileInput.value.value = '';
   }

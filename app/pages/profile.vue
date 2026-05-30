@@ -195,6 +195,7 @@ import PhotoGrid from '~/components/PhotoGrid.vue';
 import FieldGroupEditor from '~/components/FieldGroupEditor.vue';
 import { PROFILE_FIELD_GROUPS } from '~/utils/profile-fields';
 import { calcAge } from '~/utils/format';
+import { compressImage } from '~/utils/image';
 
 definePageMeta({
   layout: 'default',
@@ -259,25 +260,47 @@ async function loadPhotos() {
   }
 }
 
-async function handlePhotoUpload(file: File) {
+async function handlePhotoUpload(input: File | File[]) {
+  const files = Array.isArray(input) ? input : [input];
   uploadingPhoto.value = true;
   try {
     const albums = await client.albums.listAlbums({});
     if (albums.status !== 200 || albums.body.albums.length === 0) return;
     const albumId = albums.body.albums[0].id;
 
-    const res = await client.albums.getUploadUrl({ 
-      params: { id: albumId },
-      body: { contentType: file.type }
-    });
+    await Promise.all(files.map(async (file) => {
+      try {
+        // 1. Compress image (max 1200px, 0.8 quality)
+        const compressedFile = await compressImage(file);
+        
+        // 2. Get pre-signed URL
+        const res = await client.albums.getUploadUrl({ 
+          params: { id: albumId },
+          body: { contentType: compressedFile.type }
+        });
 
-    if (res.status === 200) {
-      const { uploadUrl, objectKey, publicUrl } = res.body;
-      await fetch(uploadUrl, { method: 'PUT', body: file, headers: { 'Content-Type': file.type } });
-      const photoUrl = publicUrl || uploadUrl;
-      await client.albums.confirmUpload({ params: { id: albumId }, body: { objectKey, url: photoUrl } });
-      await loadPhotos();
-    }
+        if (res.status === 200) {
+          const { uploadUrl, objectKey, publicUrl } = res.body;
+          // 3. Direct upload to R2
+          await fetch(uploadUrl, { 
+            method: 'PUT', 
+            body: compressedFile, 
+            headers: { 'Content-Type': compressedFile.type } 
+          });
+          
+          const photoUrl = publicUrl || uploadUrl;
+          // 4. Confirm to backend
+          await client.albums.confirmUpload({ 
+            params: { id: albumId }, 
+            body: { objectKey, url: photoUrl } 
+          });
+        }
+      } catch (e) {
+        console.error('Failed to upload photo:', file.name, e);
+      }
+    }));
+
+    await loadPhotos();
   } finally {
     uploadingPhoto.value = false;
   }
