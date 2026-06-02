@@ -101,13 +101,13 @@
 
 
       <Sheet v-model:open="openEdit">
-      <SheetContent side="right" class="w-full max-w-md border-none p-0">
+      <SheetContent side="right" class="w-full max-w-md overflow-hidden border-none p-0">
         <div class="flex h-full flex-col bg-background/95 backdrop-blur-3xl">
           <SheetHeader class="p-6 border-b border-white/5 sticky top-0 z-10 bg-background/50 backdrop-blur-md">
             <SheetTitle class="text-2xl font-black tracking-tighter">Edit Profile</SheetTitle>
           </SheetHeader>
           
-          <div class="flex-1 overflow-y-auto p-6 space-y-10 pb-32">
+          <div class="flex-1 overflow-y-auto overflow-x-hidden p-6 space-y-10 pb-32">
             <!-- Photos Section -->
             <section class="space-y-4">
               <div class="flex items-center justify-between px-1">

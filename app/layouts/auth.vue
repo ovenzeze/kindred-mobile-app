@@ -1,5 +1,5 @@
 <template>
-  <div class="flex min-h-screen flex-col bg-transparent">
+  <div class="kindred-auth-shell">
     <div class="flex flex-1 flex-col justify-center px-6 py-12">
       <div class="mx-auto w-full max-w-sm">
         <div class="text-center mb-10">

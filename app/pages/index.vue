@@ -73,7 +73,7 @@
                 </span>
               </div>
             </DrawerHeader>
-            <div class="overflow-y-auto px-6 pb-16">
+            <div class="overflow-y-auto overflow-x-hidden px-6 pb-16">
               <ProfileDetails :fields="currentCard.fields" />
             </div>
           </DrawerContent>
@@ -246,4 +246,3 @@
       fetchQueue();
       });
       </script>
-
