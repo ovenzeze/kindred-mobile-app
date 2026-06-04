@@ -32,6 +32,8 @@ npm run dev
 |------|------|
 | `npm run dev` | 开发服务器（端口 5102） |
 | `npm run build` | 生产构建 |
+| `npm run generate` | 静态站点生成 |
+| `npm run sitemap` | 生成 `public/sitemap.xml` |
 | `npm run update-api` | 从部署 OpenAPI 同步 `shared-contracts` |
 
 ## 目录结构
@@ -42,7 +44,7 @@ kindred-mobile-app/
 │   ├── components/       # UI 组件
 │   ├── composables/      # useApi 等
 │   ├── layouts/          # default, auth
-│   ├── middleware/       # auth, guest
+│   ├── middleware/       # auth, guest, dev-only
 │   ├── pages/            # 路由（含 auth/）
 │   ├── stores/           # auth, user
 │   ├── utils/
@@ -67,3 +69,8 @@ kindred-mobile-app/
 - **2026-05-19:** UI 框架从 Nuxt UI 4 切换为 shadcn-vue + shadcn-nuxt，并安装官方全量组件到 `app/components/ui/`。
 - **2026-05-21:** 文档维护：默认 API 基址对齐 `kapi.deth.dev`；agent-browser 验收改 curl health；字体加载与 shadcn 规则同步。
 - **2026-05-22:** 文档维护：复核 kapi OpenAPI 仍缺 albums/profileFields；`index.ts` 注释策略不变。
+- **2026-05-23:** 契约同步完成，`albums` / `profileFields` 在 `index.ts` 注册；刷新 sitemap。
+- **2026-05-28:** 相册 UI 与 R2 预签名直传流程实现；客户端图片压缩、多图上传。
+- **2026-05-29:** 综合 UI 大改版：发现页、聊天、资料、匹配等核心页面全面优化。
+- **2026-06-03:** 文档维护；PWA 配置（manifest、icons、apple-touch-icon）；新组件（PhotoGrid、ProfileDetails、FieldGroupEditor、EmptyState、MatchOverlay）；新 util（image.ts、profile-fields.ts、format.ts）。
+- **2026-06-04:** 文档维护：可信源与 openmemory 同步新组件/store/middleware/utils。

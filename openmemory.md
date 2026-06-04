@@ -50,7 +50,7 @@
 
 ### shadcn-vue UI 栈（2026-05-19）
 
-**决策：** UI 从 Nuxt UI 4 迁移至 `shadcn-vue` + `shadcn-nuxt`；组件源码在 `app/components/ui/`；全局样式入口为 `nuxt.config.ts` 的 `css: ['~/assets/css/main.css']`；`main.css` 首行 Google Fonts `@import`（Sora / Fraunces），并导入 `tailwindcss`、`tw-animate-css`、`shadcn-vue/tailwind.css`。
+**决策：** UI 从 Nuxt UI 4 迁移至 `shadcn-vue` + `shadcn-nuxt`；组件源码在 `app/components/ui/`；全局样式入口为 `nuxt.config.ts` 的 `css: ['~/assets/css/main.css']`；`main.css` 首行 Google Fonts `@import`（Geist），并导入 `tailwindcss`、`tw-animate-css`、`shadcn-vue/tailwind.css`。
 
 **事实来源：** `package.json`、`nuxt.config.ts`、`components.json`、`app/assets/css/main.css`、`docs/rules/shadcn-vue.md`
 
@@ -99,6 +99,34 @@
 
 ---
 
+## 2026-06-03 文档维护复核
+
+- **规则与路径：** `CLAUDE.md`、`docs/rules/*.md` 引用路径均存在；`CLAUDE.md` 已更新维护日期与文档体系表。
+- **字体修正：** `openmemory.md` 中 shadcn-vue 决策条目的字体名从 "Sora / Fraunces" 修正为 "Geist"。
+- **契约引用修正：** `docs/rules/contracts.md` 中对 `docs/rules/api.md` 的悬空引用已修正。
+- **新代码未入文档：** `app/stores/user.ts`（用户资料缓存 store）、`app/middleware/dev-only.ts`（dev 模式守卫）、5 个新组件（`EmptyState`、`MatchOverlay`、`PhotoGrid`、`FieldGroupEditor`、`ProfileDetails`）、3 个新 util（`image.ts`、`profile-fields.ts`、`format.ts`）、PWA 配置、客户端图片压缩 — 均已实现但未在规则文件中记录。
+
+---
+
+## 2026-06-04 文档维护复核
+
+- **规则与路径：** `CLAUDE.md`、`docs/rules/*.md` 引用路径均存在。
+- **可信源更新：** `CLAUDE.md` 可信源补充 `app/stores/user.ts`、`app/middleware/dev-only.ts`、`app/utils/image.ts`、`app/utils/profile-fields.ts`、`app/utils/format.ts`；关键事实补充 PWA 与图片处理。
+- **新组件入文档状态：**
+  - `EmptyState` — 空状态占位组件
+  - `MatchOverlay` — 匹配弹窗覆盖层
+  - `PhotoGrid` — 照片网格（含压缩预览、多图上传）
+  - `FieldGroupEditor` — 资料字段编辑器
+  - `ProfileDetails` — 资料详情展示
+- **新页面：** `app/pages/chat/[id].vue`（单聊页，含消息列表与输入）
+- **布局重构：** commit `999bdad` 标准化移动端 layout shells，优化 viewport 滚动行为
+- **PWA：** `nuxt.config.ts` 完整 PWA 配置（manifest、icons、apple-touch-icon、service worker）；`public/` 下新增 `pwa-192x192.png`、`pwa-512x512.png`、`apple-touch-icon.png`、`icon-transparent.png`
+- **docs/rules/frontend.md 已更新：** 目录表包含 `app/utils/` 条目
+
+---
+
 ## 待决事项
 
-- 相册 UI 与 R2 预签名直传流程 — 未实现（契约已就绪）
+- ~~相册 UI 与 R2 预签名直传流程~~ — 已实现（2026-05-28 起，含客户端图片压缩、多图上传、R2 预签名直传）
+- ~~`app/stores/user.ts`、`app/middleware/dev-only.ts`、新组件与 utils 需补充文档~~ — 已在 2026-06-04 复核中记录于本文件；可信源已同步到 CLAUDE.md
+- `docs/rules/frontend.md` 可考虑补充新组件使用模式（PhotoGrid 多图上传、FieldGroupEditor 表单模式）— 低优先级
