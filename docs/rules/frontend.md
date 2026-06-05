@@ -12,6 +12,7 @@
 | `app/stores/` | Pinia stores |
 | `app/middleware/` | 路由中间件 |
 | `app/layouts/` | 布局（`default`、`auth`） |
+| `app/utils/` | 工具函数（图片压缩、字段定义、格式化） |
 | `app/shared-contracts/` | API 契约 |
 
 来源：`app/` 目录结构、`nuxt.config.ts` 中 `future.compatibilityVersion: 4`
