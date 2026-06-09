@@ -133,6 +133,25 @@
 
 ---
 
+## 2026-06-07 文档维护复核
+
+- **代码状态：** 自 2026-06-05 以来 `master` 无新业务提交，仅本次维护类改动。`app/utils/`（`format.ts`、`image.ts`、`profile-fields.ts`）与组件、store、middleware 同 2026-06-04 记录一致。
+- **规则与路径：** `docs/rules/frontend.md`、`docs/rules/contracts.md`、`docs/rules/shadcn-vue.md`、`docs/rules/agent-browser-qa.md` 中引用的目录/文件（`app/pages/auth/{login,register,callback}.vue`、`app/stores/auth.ts`、`components.json`、`scripts/generate-sitemap.ts`、`scripts/update-api.sh`）逐条核对，全部存在。
+- **后端契约：** 后端 `kindred-api-server` 的 `openapi.json` 仍为 **34** 条 path，与 `docs/rules/contracts.md` 记录一致。
+- **Sitemap：** 通过 `scripts/generate-sitemap.ts` 重新生成，URL 数 7 不变，`lastmod` 同步为 2026-06-07。
+
+---
+
+## 2026-06-09 文档维护复核
+
+- **代码状态：** 自 2026-06-07 以来 `master` 无新业务提交。现有组件、store、middleware、utils 与 2026-06-07 记录一致。
+- **规则与路径：** `docs/rules/frontend.md`、`docs/rules/contracts.md`、`docs/rules/shadcn-vue.md`、`docs/rules/agent-browser-qa.md` 中引用的目录/文件逐条核对，全部存在。
+- **后端契约：** 后端 `kindred-api-server` 的 `openapi.json` 仍为 **34** 条 path，与 `docs/rules/contracts.md` 记录一致。
+- **Sitemap：** 通过 `scripts/generate-sitemap.ts` 重新生成，URL 数 7 不变，`lastmod` 同步为 2026-06-09。
+- **PR 状态：** 2026-06-07 维护 PR 尚未合并，本次维护在其基础上追加日期更新与 sitemap 刷新。
+
+---
+
 ## 待决事项
 
 - ~~相册 UI 与 R2 预签名直传流程~~ — 已实现（2026-05-28 起，含客户端图片压缩、多图上传、R2 预签名直传）
