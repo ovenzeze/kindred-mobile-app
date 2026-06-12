@@ -133,6 +133,23 @@
 
 ---
 
+## 2026-06-11 文档维护复核
+
+- **代码状态：** master 分支自 2026-06-05 以来无新业务提交；现有组件、store、middleware、utils 与 2026-06-05 记录一致。
+- **规则与路径：** `CLAUDE.md` 可信源、`docs/rules/*.md` 引用路径均存在且有效。
+- **Sitemap：** 已刷新 `public/sitemap.xml`，`lastmod` 更新为 2026-06-11，URL 数量仍为 7。
+
+---
+
+## 2026-06-12 文档维护复核
+
+- **代码状态：** master 分支自 2026-06-05 以来无新业务提交；现有组件、store、middleware、utils 与 2026-06-11 记录一致。
+- **规则与路径：** `CLAUDE.md` 可信源、`docs/rules/*.md` 引用路径均存在且有效。
+- **OpenAPI：** 本地 `openapi.json` 仍为 **34** 条 path。
+- **Sitemap：** 已刷新 `public/sitemap.xml`，`lastmod` 更新为 2026-06-12，URL 数量仍为 7。
+
+---
+
 ## 待决事项
 
 - ~~相册 UI 与 R2 预签名直传流程~~ — 已实现（2026-05-28 起，含客户端图片压缩、多图上传、R2 预签名直传）
