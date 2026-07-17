@@ -26,3 +26,4 @@ dogfood-output/
 .env.*
 !.env.example
 .vercel
+**/*pycache*/
