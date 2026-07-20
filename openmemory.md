@@ -302,6 +302,15 @@
 
 ---
 
+## 2026-07-20 文档维护复核
+
+- **规则与路径：** `CLAUDE.md`、`docs/rules/{frontend,contracts,shadcn-vue,agent-browser-qa}.md` 中引用的关键文件与命令均复核存在。
+- **页面与 Sitemap：** `app/pages/` 当前包含首页、matches、profile、chat index/detail、auth login/register/callback、ui-kit；`scripts/generate-sitemap.ts` 仍覆盖 7 个公开入口，动态单聊页与 OAuth callback 不纳入 sitemap。
+- **Sitemap：** `npm run sitemap` 已刷新 `public/sitemap.xml`（7 URLs，`lastmod=2026-07-20`）。
+- **代码状态：** `preview` 分支自 2026-07-19 维护提交后无新增业务提交；文档规则无需结构性修正。
+
+---
+
 ## 待决事项
 
 - ~~相册 UI 与 R2 预签名直传流程~~ — 已实现（2026-05-28 起，含客户端图片压缩、多图上传、R2 预签名直传）
