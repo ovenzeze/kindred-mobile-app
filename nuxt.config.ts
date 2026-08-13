@@ -22,7 +22,7 @@ export default defineNuxtConfig({
       ],
     },
     server: {
-      allowedHosts: ['kindred.deth.dev', '.deth.dev'],
+      allowedHosts: ['kindred.deth.us', '.deth.us'],
     },
   },
 
@@ -63,7 +63,7 @@ export default defineNuxtConfig({
   // Environment variables
   runtimeConfig: {
     public: {
-      apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE_URL || 'https://kapi.deth.dev/api/v1'
+      apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE_URL || 'https://kapi.deth.us/api/v1'
     }
   },
 

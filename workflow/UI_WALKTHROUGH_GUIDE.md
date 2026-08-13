@@ -13,7 +13,7 @@
 
 ```bash
 # 推荐启动模板
-agent-browser --session kindred-qa --args "--no-sandbox" open https://kindred.deth.dev
+agent-browser --session kindred-qa --args "--no-sandbox" open https://kindred.deth.us
 ```
 
 ---

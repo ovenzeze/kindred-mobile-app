@@ -8,7 +8,7 @@
 
 ### API 基址通过 runtimeConfig
 
-**决策：** `useApi()` 读取 `runtimeConfig.public.apiBaseUrl`；本地开发默认使用 `https://kapi.deth.dev/api/v1`，可通过 `.env` 的 `NUXT_PUBLIC_API_BASE_URL` 覆盖。
+**决策：** `useApi()` 读取 `runtimeConfig.public.apiBaseUrl`；本地开发默认使用 `https://kapi.deth.us/api/v1`，可通过 `.env` 的 `NUXT_PUBLIC_API_BASE_URL` 覆盖。
 
 **事实来源：** `nuxt.config.ts`、`app/composables/useApi.ts`、`.env.example`
 
@@ -16,7 +16,7 @@
 
 ### 契约与后端 OpenAPI 同步
 
-**决策：** `app/shared-contracts/` 通过 `scripts/update-api.sh` 从部署的 OpenAPI（`https://kapi.deth.dev/api/openapi.json`）生成 `openapi-types.ts` 与 `generated-api.ts`；手写契约文件（`auth.ts` 等）仍为 ts-rest 运行时来源，新增域时需同时更新手写契约与 `index.ts`。
+**决策：** `app/shared-contracts/` 通过 `scripts/update-api.sh` 从部署的 OpenAPI（`https://kapi.deth.us/api/openapi.json`）生成 `openapi-types.ts` 与 `generated-api.ts`；手写契约文件（`auth.ts` 等）仍为 ts-rest 运行时来源，新增域时需同时更新手写契约与 `index.ts`。
 
 **事实来源：** `scripts/update-api.sh`、`app/shared-contracts/index.ts`
 
@@ -85,9 +85,9 @@
 
 ### kapi OpenAPI 与手写 albums/profileFields（2026-05-25 复核）
 
-**现状：** `https://kapi.deth.dev/api/openapi.json` 仍为 **34** 条 path，含 albums/profileFields。`index.ts` 已注册 `albums` / `profileFields` router；`npm run sitemap` 已刷新 `public/sitemap.xml`（`lastmod` 2026-05-25）。
+**现状：** `https://kapi.deth.us/api/openapi.json` 仍为 **34** 条 path，含 albums/profileFields。`index.ts` 已注册 `albums` / `profileFields` router；`npm run sitemap` 已刷新 `public/sitemap.xml`（`lastmod` 2026-05-25）。
 
-**验证：** `curl -s https://kapi.deth.dev/api/openapi.json | jq '.paths | keys | length'`（期望 34）。
+**验证：** `curl -s https://kapi.deth.us/api/openapi.json | jq '.paths | keys | length'`（期望 34）。
 
 ---
 

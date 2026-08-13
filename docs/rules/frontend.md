@@ -45,7 +45,7 @@
 复制 `.env.example` 为 `.env`，设置：
 
 ```
-NUXT_PUBLIC_API_BASE_URL=https://kapi.deth.dev/api/v1
+NUXT_PUBLIC_API_BASE_URL=https://kapi.deth.us/api/v1
 ```
 
-本地前端默认连接 `kapi.deth.dev`，不再假设后端跑在 `localhost:3102`。
+本地前端默认连接 `kapi.deth.us`，不再假设后端跑在 `localhost:3102`。

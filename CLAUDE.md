@@ -52,7 +52,7 @@
 ## 当前关键事实
 
 - **开发端口：** `5102`（`nuxt.config.ts` + `package.json` scripts）
-- **API 基址：** `NUXT_PUBLIC_API_BASE_URL`，本地默认 `https://kapi.deth.dev/api/v1`
+- **API 基址：** `NUXT_PUBLIC_API_BASE_URL`，本地默认 `https://kapi.deth.us/api/v1`
 - **渲染：** `ssr: false`（SPA 体验）
 - **契约同步：** `npm run update-api` → `scripts/update-api.sh`
 - **PWA：** `@vite-pwa/nuxt`，manifest + apple-touch-icon + service worker

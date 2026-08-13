@@ -5,7 +5,7 @@
 set -e
 
 # Configuration
-OPENAPI_URL="https://kapi.deth.dev/api/openapi.json"
+OPENAPI_URL="https://kapi.deth.us/api/openapi.json"
 OPENAPI_JSON="openapi.json"
 CONTRACTS_DIR="app/shared-contracts"
 TYPES_FILE="$CONTRACTS_DIR/openapi-types.ts"

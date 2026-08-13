@@ -7,7 +7,7 @@ type UrlEntry = {
   priority?: number;
 };
 
-const SITE_URL = "https://kindred.deth.dev";
+const SITE_URL = "https://kindred.deth.us";
 const PUBLIC_DIR = join(process.cwd(), "public");
 
 function todayISO(): string {
