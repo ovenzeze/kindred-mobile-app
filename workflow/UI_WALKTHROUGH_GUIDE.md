@@ -1,5 +1,7 @@
 # Kindred UI 走查快速入门手册 (Quickstart Guide)
 
+> 上次更新：2026-08-14
+
 本指南旨在帮助新开发者快速使用 `agent-browser` 对 Kindred 项目进行 UI 走查，确保流程高效、可复现且无障碍。
 
 ---

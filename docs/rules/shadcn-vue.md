@@ -1,5 +1,7 @@
 # shadcn-vue 规则
 
+> 上次更新：2026-08-14
+
 ## 官方接入点
 
 - 依赖：`shadcn-nuxt`、`shadcn-vue`、`reka-ui`、`lucide-vue-next`、`vue-sonner`、`tw-animate-css`、`class-variance-authority`、`clsx`、`tailwind-merge` 必须在 `package.json`。

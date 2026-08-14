@@ -1,5 +1,6 @@
 # Kindred Mobile Web App
 
+> 上次更新：2026-08-14
 > Kindred 社交生态的移动端 Web 核心：Nuxt 4 + Vue 3 + ts-rest，移动优先 PWA。
 
 ## 技术栈

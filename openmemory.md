@@ -1,5 +1,6 @@
 # openmemory.md — Kindred Mobile Web App 项目记忆
 
+> 上次更新：2026-08-14
 > 记录已验证的经验、决策、坑点。已替代内容须显式标记。
 
 ---

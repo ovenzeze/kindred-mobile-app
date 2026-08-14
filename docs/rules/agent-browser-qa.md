@@ -1,5 +1,7 @@
 # agent-browser 前端测试验收规则
 
+> 上次更新：2026-08-14
+
 ## 适用范围
 
 使用 `agent-browser` 对 Kindred Mobile Web App 做前端验收、冒烟测试、探索式 QA、回归验证和截图取证。

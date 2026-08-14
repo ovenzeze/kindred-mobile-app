@@ -1,5 +1,7 @@
 # shared-contracts 同步规则
 
+> 上次更新：2026-08-14
+
 ## 更新流程
 
 1. 确保后端已部署最新 OpenAPI（或本地运行后临时改 `scripts/update-api.sh` 中的 URL）
