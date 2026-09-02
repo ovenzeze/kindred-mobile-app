@@ -1,6 +1,6 @@
 # openmemory.md — Kindred Mobile Web App 项目记忆
 
-> 上次更新：2026-08-14
+> 上次更新：2026-09-02
 > 记录已验证的经验、决策、坑点。已替代内容须显式标记。
 
 ---
@@ -353,6 +353,13 @@
 - **规则与路径：** `CLAUDE.md`、`docs/rules/{frontend,contracts,shadcn-vue,agent-browser-qa}.md` 中引用的关键文件与命令均复核存在。
 - **页面与 Sitemap：** `app/pages/` 当前包含首页、matches、profile、chat index/detail、auth login/register/callback、ui-kit；`scripts/generate-sitemap.ts` 仍覆盖 7 个公开入口，动态单聊页与 OAuth callback 不纳入 sitemap。
 - **Sitemap：** `npm run sitemap` 已刷新 `public/sitemap.xml`（7 URLs，`lastmod=2026-09-01`）。
+- **代码状态：** `preview` 分支自 2026-08-14 维护提交后无新增业务提交；文档规则无需结构性修正。
+
+## 2026-09-02 文档维护复核
+
+- **规则与路径：** `CLAUDE.md`、`docs/rules/{frontend,contracts,shadcn-vue,agent-browser-qa}.md` 中引用的关键文件与命令均复核存在。
+- **页面与 Sitemap：** `app/pages/` 当前包含首页、matches、profile、chat index/detail、auth login/register/callback、ui-kit；`scripts/generate-sitemap.ts` 仍覆盖 7 个公开入口，动态单聊页与 OAuth callback 不纳入 sitemap。
+- **Sitemap：** `bun scripts/generate-sitemap.ts` 已刷新 `public/sitemap.xml`（7 URLs，`lastmod=2026-09-02`）。
 - **代码状态：** `preview` 分支自 2026-08-14 维护提交后无新增业务提交；文档规则无需结构性修正。
 
 ## 待决事项
